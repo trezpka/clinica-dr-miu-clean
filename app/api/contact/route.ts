@@ -1,37 +1,72 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { contactFormSchema } from "@/lib/contact";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(2, "Numele este prea scurt."),
+  phone: z.string().min(7, "Numărul de telefon este invalid."),
+  message: z.string().min(10, "Mesajul este prea scurt."),
+});
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 export async function POST(request: Request) {
   try {
-    const json = await request.json();
-    const parsed = contactFormSchema.safeParse(json);
+    const body = await request.json();
+    const parsed = contactSchema.safeParse(body);
 
     if (!parsed.success) {
-      const issue = parsed.error.issues[0];
-      return NextResponse.json({ message: issue?.message || "Datele trimise nu sunt valide." }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Datele trimise nu sunt valide.",
+          issues: parsed.error.flatten(),
+        },
+        { status: 400 }
+      );
     }
 
-    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL } = process.env;
+    const { name, phone, message } = parsed.data;
 
-    if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !CONTACT_TO_EMAIL || !CONTACT_FROM_EMAIL) {
+    const SMTP_HOST = process.env.SMTP_HOST;
+    const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
+    const SMTP_USER = process.env.SMTP_USER;
+    const SMTP_PASS = process.env.SMTP_PASS;
+    const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL;
+    const CONTACT_FROM_EMAIL = process.env.CONTACT_FROM_EMAIL;
+
+    if (
+      !SMTP_HOST ||
+      !SMTP_USER ||
+      !SMTP_PASS ||
+      !CONTACT_TO_EMAIL ||
+      !CONTACT_FROM_EMAIL
+    ) {
       return NextResponse.json(
-        { message: "Formularul nu este configurat complet. Lipsesc variabilele de mediu pentru email." },
+        {
+          success: false,
+          error: "Lipsesc variabilele de mediu pentru trimiterea emailului.",
+        },
         { status: 500 }
       );
     }
 
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
-      port: Number(SMTP_PORT),
-      secure: Number(SMTP_PORT) === 465,
+      port: SMTP_PORT,
+      secure: SMTP_PORT === 465,
       auth: {
         user: SMTP_USER,
         pass: SMTP_PASS,
       },
     });
-
-    const { name, phone, message } = parsed.data;
 
     await transporter.sendMail({
       from: CONTACT_FROM_EMAIL,
@@ -44,8 +79,7 @@ export async function POST(request: Request) {
         "",
         "Mesaj:",
         message,
-      ].join("
-"),
+      ].join("\n"),
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #0f172a;">
           <h2>Cerere nouă de programare</h2>
@@ -56,20 +90,19 @@ export async function POST(request: Request) {
       `,
     });
 
-    return NextResponse.json({ message: "Mesajul a fost trimis. Te vom contacta cât mai curând." });
-  } catch {
+    return NextResponse.json({
+      success: true,
+      message: "Mesajul a fost trimis. Te vom contacta cât mai curând.",
+    });
+  } catch (error) {
+    console.error("Contact form error:", error);
+
     return NextResponse.json(
-      { message: "A apărut o eroare la trimiterea mesajului. Încearcă din nou sau sună-ne direct." },
+      {
+        success: false,
+        error: "A apărut o eroare la trimiterea mesajului.",
+      },
       { status: 500 }
     );
   }
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }
