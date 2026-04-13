@@ -1,25 +1,28 @@
-import type { MetadataRoute } from "next";
-import { clinic } from "@/lib/clinic";
-import { servicePages } from "@/lib/pages-data";
-import { blogPosts } from "@/lib/blog-data";
+export async function GET() {
+  const baseUrl = "https://www.clinicadrmiu.ro";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = clinic.domain;
-
-  const staticPages = [
+  const urls = [
     "",
     "/despre-dr-miu",
     "/contact",
     "/blog",
   ];
 
-  const serviceUrls = servicePages.map((page) => page.path);
-  const blogUrls = blogPosts.map((post) => `/blog/${post.slug}`);
+  const allUrls = urls.map((path) => `
+    <url>
+      <loc>${baseUrl}${path}</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+    </url>
+  `).join("");
 
-  const allUrls = [...staticPages, ...serviceUrls, ...blogUrls];
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${allUrls}
+  </urlset>`;
 
-  return allUrls.map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: new Date(),
-  }));
+  return new Response(sitemap, {
+    headers: {
+      "Content-Type": "application/xml",
+    },
+  });
 }
