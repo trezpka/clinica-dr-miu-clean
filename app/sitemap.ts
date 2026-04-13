@@ -20,6 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return allUrls.map((path) => ({
     url: `${baseUrl}${path}`,
-    lastModified: new Date(),
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'monthly',
+    priority: path === '' ? 1 : 0.8,
   }))
 }
