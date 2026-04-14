@@ -79,7 +79,7 @@ export function ServicePageTemplate({ page }: { page: ServicePageData }) {
 
       <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionTitle eyebrow="Întrebări frecvente" title={`Răspunsuri utile despre ${page.shortTitle}`} description="Întrebările frecvente ajută pacientul și întăresc structura semantică a paginii." />
+          <SectionTitle eyebrow="Întrebări frecvente" title={`Răspunsuri utile despre ${page.shortTitle}`} description="" />
           <div className="mt-10 grid gap-5">
             {page.faq.map((item) => <Card key={item.q} className="rounded-[1.5rem] border-slate-200 shadow-sm"><CardContent className="p-6"><h3 className="text-lg font-semibold text-slate-950">{item.q}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{item.a}</p></CardContent></Card>)}
           </div>
