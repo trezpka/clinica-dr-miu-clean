@@ -46,7 +46,7 @@ export function ServicePageTemplate({ page }: { page: ServicePageData }) {
 
       <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionTitle eyebrow="Etape" title={page.processTitle} description="Claritate pentru pacient și structură bună pentru conținutul paginii." />
+          <SectionTitle eyebrow="Etape" title={page.processTitle} description="" />
           <div className="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
             {page.process.map((item, index) => (
               <motion.div key={`${item.step}-${item.title}`} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.05 }}>
@@ -60,7 +60,7 @@ export function ServicePageTemplate({ page }: { page: ServicePageData }) {
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
-            <SectionTitle eyebrow="De ce Clinica Dr. Miu" title="Competență chirurgicală, comunicare calmă și planificare corectă" description="Paginile dedicate trebuie să transmită siguranță, seriozitate și o diferențiere clară față de o comunicare generalistă sau agresiv comercială." />
+            <SectionTitle eyebrow="De ce Clinica Dr. Miu" title="Competență chirurgicală, comunicare calmă și planificare corectă" description="" />
             <div className="mt-8 space-y-4">
               {[
                 { title: "Abordare individualizată", text: "Fiecare plan este construit în funcție de anatomia, nevoile și obiectivul real al pacientului.", icon: ShieldCheck },
