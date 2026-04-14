@@ -39,7 +39,7 @@ export function ServicePageTemplate({ page }: { page: ServicePageData }) {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <SectionTitle eyebrow="Despre tratament" title={page.benefitsTitle} description="mt-6 text-lg text-slate-600" />
+          <SectionTitle eyebrow="Despre tratament" title={page.benefitsTitle} description="Implantul dentar poate fi recomandat atunci când un dinte nu mai poate fi salvat sau lipsește deja." />
           <Card className="rounded-[1.75rem] border-slate-200 shadow-sm"><CardContent className="p-6"><BulletList items={page.benefits} /></CardContent></Card>
         </div>
       </section>
