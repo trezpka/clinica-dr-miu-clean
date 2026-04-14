@@ -1,38 +1,37 @@
-import { clinic } from "@/lib/clinic";
-import { servicePages } from "@/lib/pages-data";
-import { blogPosts } from "@/lib/blog-data";
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  const baseUrl = clinic.domain;
+  const baseUrl = "https://www.clinicadrmiu.ro";
 
-  const staticPages = [
-    "",
+  const urls = [
+    "/",
     "/despre-dr-miu",
     "/contact",
     "/blog",
+    "/implant-dentar-buzau",
+    "/implantologie-buzau",
+    "/sinus-lift-buzau",
+    "/aditie-osoasa-buzau",
+    "/all-on-x-buzau",
+    "/chirurgie-dento-alveolara-buzau",
   ];
-
-  const serviceUrls = servicePages.map((page) => page.path);
-  const blogUrls = blogPosts.map((post) => `/blog/${post.slug}`);
-
-  const allUrls = [...staticPages, ...serviceUrls, ...blogUrls];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls
-  .map((path) => {
-    return `
+${urls
+  .map(
+    (url) => `
   <url>
-    <loc>${baseUrl}${path}</loc>
+    <loc>${baseUrl}${url}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-  </url>`;
-  })
+  </url>`
+  )
   .join("")}
 </urlset>`;
 
-  return new Response(xml, {
+  return new NextResponse(xml, {
     headers: {
-     "Content-Type": "text/xml",
+      "Content-Type": "application/xml",
     },
   });
 }
