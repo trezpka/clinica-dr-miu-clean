@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: `Despre ${clinic.doctor} | Implantologie dentară în ${clinic.city}`,
   description: `${clinic.doctor} este medic specialist în chirurgie dento-alveolară și implantologie dentară în ${clinic.city}, cu activitate concentrată pe tratamente moderne de implant dentar, chirurgie orală și reabilitare orală complexă.`,
   alternates: {
-    canonical: "https://clinicadrmiu.ro/despre-dr-miu",
+    canonical: `${clinic.website}${clinic.path}`,
   },
   openGraph: {
     title: `Despre ${clinic.doctor} | Implantologie dentară în ${clinic.city}`,
     description: `${clinic.doctor} este medic specialist în chirurgie dento-alveolară și implantologie dentară în ${clinic.city}, cu abordare orientată spre tratamente predictibile și rezultate stabile pe termen lung.`,
-    url: "https://clinicadrmiu.ro/despre-dr-miu",
+    url: `${clinic.website}${clinic.path}`,
     siteName: clinic.name,
     locale: "ro_RO",
     type: "website",
@@ -90,7 +90,7 @@ const faqJsonLd = {
 export default function AboutPage() {
   const jsonLd = dentistJsonLd(
     metadata.description as string,
-    "/despre-dr-miu",
+    clinic.path,
   );
 
   return (
