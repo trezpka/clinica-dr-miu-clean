@@ -18,15 +18,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ro">
-      <body className="min-h-screen bg-white pb-20 text-slate-800 antialiased md:pb-0">
+      <body className="min-h-screen bg-white pb-24 text-slate-800 antialiased md:pb-0">
+        
+        {/* HEADER */}
         <SiteHeader />
 
+        {/* PAGINI */}
         {children}
 
+        {/* FOOTER */}
         <SiteFooter />
 
-        {/* 🔥 BUTON STICKY MOBIL */}
+        {/* 🔥 STICKY BAR MOBIL (Sună + Programează) */}
         <MobileCallBar />
+
       </body>
     </html>
   );
