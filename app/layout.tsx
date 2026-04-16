@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ro">
       <head>
+        {/* 🔥 GOOGLE ANALYTICS */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BN8R5LYNDK"
           strategy="afterInteractive"
@@ -36,12 +37,23 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body className="min-h-screen bg-white pb-24 text-slate-800 antialiased md:pb-0">
+      <body className="min-h-screen bg-white pb-32 text-slate-800 antialiased md:pb-0">
+        
+        {/* 🔥 TRACKING GLOBAL */}
         <GoogleAnalytics />
+
+        {/* HEADER */}
         <SiteHeader />
+
+        {/* PAGINI */}
         {children}
+
+        {/* FOOTER */}
         <SiteFooter />
+
+        {/* 🔥 BARĂ MOBILĂ (Sună + WhatsApp + Programare) */}
         <MobileCallBar />
+
       </body>
     </html>
   );
