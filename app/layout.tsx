@@ -3,6 +3,7 @@ import "./globals.css";
 import { clinic } from "@/lib/clinic";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { MobileCallBar } from "@/components/mobile-call-bar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(clinic.domain),
@@ -10,13 +11,22 @@ export const metadata: Metadata = {
   description: "Implantologie și chirurgie dento-alveolară în Buzău.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ro">
-      <body className="min-h-screen bg-white text-slate-800 antialiased">
+      <body className="min-h-screen bg-white pb-20 text-slate-800 antialiased md:pb-0">
         <SiteHeader />
+
         {children}
+
         <SiteFooter />
+
+        {/* 🔥 BUTON STICKY MOBIL */}
+        <MobileCallBar />
       </body>
     </html>
   );
