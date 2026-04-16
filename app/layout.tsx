@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { clinic } from "@/lib/clinic";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import Script from "next/script"; // 👈 IMPORTANT
+import { MobileCallBar } from "@/components/mobile-call-bar";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(clinic.domain),
@@ -11,11 +13,14 @@ export const metadata: Metadata = {
   description: "Implantologie și chirurgie dento-alveolară în Buzău.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ro">
       <head>
-        {/* 🔥 GOOGLE ANALYTICS */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BN8R5LYNDK"
           strategy="afterInteractive"
@@ -31,10 +36,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
 
-      <body className="min-h-screen bg-white text-slate-800 antialiased">
+      <body className="min-h-screen bg-white pb-24 text-slate-800 antialiased md:pb-0">
+        <GoogleAnalytics />
         <SiteHeader />
         {children}
         <SiteFooter />
+        <MobileCallBar />
       </body>
     </html>
   );
