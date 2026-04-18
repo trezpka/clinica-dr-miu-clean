@@ -1,446 +1,902 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Clinica Dr. Miu | Implant dentar în Buzău",
+  metadataBase: new URL('https://clinicadrmiu.ro'),
+  title:
+    'Implant dentar Buzău | Implantologie și chirurgie dento-alveolară | Clinica Dr. Miu',
   description:
-    "Clinica Dr. Miu din Buzău oferă tratamente moderne de implant dentar, implantologie, sinus lift, adiție osoasă, All-on-X și chirurgie dento-alveolară.",
+    'Clinica Dr. Miu din Buzău oferă tratamente de implant dentar, implantologie, sinus lift, adiție osoasă, All-on-X și chirurgie dento-alveolară, pe baza evaluării clinice, CBCT și planificării digitale.',
+  keywords: [
+    'implant dentar Buzău',
+    'implantologie Buzău',
+    'sinus lift Buzău',
+    'adiție osoasă Buzău',
+    'All-on-X Buzău',
+    'chirurgie dento-alveolară Buzău',
+    'clinică stomatologică Buzău',
+    'implanturi dentare Buzău',
+    'reabilitare orală Buzău',
+    'Clinica Dr. Miu',
+  ],
   alternates: {
-    canonical: "https://clinicadrmiu.ro",
+    canonical: 'https://clinicadrmiu.ro',
   },
   openGraph: {
-    title: "Clinica Dr. Miu | Implant dentar în Buzău",
+    title:
+      'Implant dentar Buzău | Implantologie și chirurgie | Clinica Dr. Miu',
     description:
-      "Tratament modern de implant dentar în Buzău, planificare digitală și reabilitări fixe pe implanturi.",
-    url: "https://clinicadrmiu.ro",
-    siteName: "Clinica Dr. Miu",
-    locale: "ro_RO",
-    type: "website",
-    images: [
-      {
-        url: "https://clinicadrmiu.ro/dr-miu-portrait-v2.jpg",
-        width: 1200,
-        height: 1600,
-        alt: "Clinica Dr. Miu",
-      },
-    ],
+      'Evaluare completă, CBCT, scanare digitală și plan de tratament personalizat pentru implant dentar și reabilitări complexe în Buzău.',
+    url: 'https://clinicadrmiu.ro',
+    siteName: 'Clinica Dr. Miu',
+    locale: 'ro_RO',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
 const services = [
   {
-    title: "Implant dentar Buzău",
-    description:
-      "Soluție modernă pentru înlocuirea dinților lipsă, cu accent pe funcție, estetică și predictibilitate.",
-    href: "/implant-dentar-buzau",
+    title: 'Implant dentar Buzău',
+    text: 'Înlocuirea unui dinte lipsă printr-o soluție fixă, stabilă și estetică, planificată în funcție de situația clinică reală și de volumul osos disponibil.',
   },
   {
-    title: "Implantologie Buzău",
-    description:
-      "Planificare atentă și tratamente adaptate fiecărui pacient, pe baza evaluării clinice și imagistice.",
-    href: "/implantologie-buzau",
+    title: 'Implantologie Buzău',
+    text: 'Tratament planificat pe baza examinării clinice, a investigațiilor imagistice și a obiectivelor funcționale și estetice ale pacientului.',
   },
   {
-    title: "Sinus lift Buzău",
-    description:
-      "Procedură indicată atunci când este necesară creșterea volumului osos pentru inserarea implanturilor.",
-    href: "/sinus-lift-buzau",
+    title: 'Sinus lift Buzău',
+    text: 'Procedură indicată în anumite cazuri pentru creșterea volumului osos la nivelul maxilarului superior, atunci când este necesară inserarea implanturilor.',
   },
   {
-    title: "Adiție osoasă Buzău",
-    description:
-      "Reconstrucție osoasă în cazurile în care volumul osos este insuficient pentru tratamentul implantar.",
-    href: "/aditie-osoasa-buzau",
+    title: 'Adiție osoasă Buzău',
+    text: 'Reconstrucție osoasă utilizată în cazurile în care suportul osos este insuficient pentru tratamentul implantar sau pentru stabilitatea pe termen lung.',
   },
   {
-    title: "All-on-X Buzău",
-    description:
-      "Reabilitare fixă pe implanturi pentru cazurile extinse, atent analizate și planificate individual.",
-    href: "/all-on-x-buzau",
+    title: 'All-on-X Buzău',
+    text: 'Soluție fixă pe implanturi pentru pacienții cu edentații extinse sau lucrări compromise, stabilită numai după o evaluare atentă și un plan corect.',
   },
   {
-    title: "Chirurgie dento-alveolară",
-    description:
-      "Tratament chirurgical modern pentru extracții complexe și alte proceduri necesare planului de reabilitare.",
-    href: "/chirurgie-dento-alveolara-buzau",
+    title: 'Chirurgie dento-alveolară Buzău',
+    text: 'Extracții complexe și alte proceduri chirurgicale necesare în cadrul unui plan de reabilitare orală complet, realizate cu accent pe precizie și confort.',
   },
 ];
 
-export default function HomePage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Dentist",
-    name: "Clinica Dr. Miu",
-    url: "https://clinicadrmiu.ro",
-    telephone: "+40 750 709 716",
-    email: "contact@clinicadrmiu.ro",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Str. Penteleu, 16",
-      addressLocality: "Buzău",
-      addressCountry: "RO",
-    },
-    medicalSpecialty: ["Implantologie", "Chirurgie dento-alveolară"],
-  };
+const faqItems = [
+  {
+    question: 'Când este recomandat un implant dentar?',
+    answer:
+      'Un implant dentar este recomandat atunci când lipsește unul sau mai mulți dinți, iar situația clinică permite o soluție fixă și predictibilă. Indicația corectă se stabilește după consultație, examinare clinică și investigații imagistice.',
+  },
+  {
+    question: 'Ce presupune consultația pentru implant dentar la Clinica Dr. Miu?',
+    answer:
+      'Consultația include evaluarea clinică, analiza situației dentare și parodontale, discutarea istoricului medical și, în funcție de caz, recomandarea investigațiilor imagistice precum CBCT și scanarea digitală. Scopul este stabilirea unui plan de tratament clar și realist.',
+  },
+  {
+    question: 'Este potrivit tratamentul All-on-X pentru orice pacient?',
+    answer:
+      'Nu. All-on-X nu este o soluție universală. Indicația depinde de volumul osos disponibil, statusul gingival, tipul de mușcătură, igiena orală și obiectivele funcționale și estetice ale pacientului.',
+  },
+  {
+    question: 'Când este nevoie de sinus lift sau adiție osoasă?',
+    answer:
+      'Sinus lift-ul sau adiția osoasă pot fi necesare atunci când osul existent nu oferă suport suficient pentru inserarea corectă și stabilă a implanturilor dentare. Necesitatea acestor proceduri se stabilește doar după investigații și planificare.',
+  },
+  {
+    question: 'Cum aleg cea mai bună soluție pentru un caz complex?',
+    answer:
+      'În cazurile complexe, alegerea tratamentului corect se face în funcție de examinarea clinică, imaginile CBCT, situația lucrărilor existente, igiena, ocluzia și așteptările pacientului. De aceea, fiecare caz trebuie analizat individual, nu tratat după un model standard.',
+  },
+];
 
+const clinicSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dentist',
+  name: 'Clinica Dr. Miu',
+  url: 'https://clinicadrmiu.ro',
+  telephone: '+40 750 709 716',
+  email: 'contact@clinicadrmiu.ro',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Str. Penteleu 16',
+    addressLocality: 'Buzău',
+    addressCountry: 'RO',
+  },
+  areaServed: 'Buzău',
+  medicalSpecialty: ['Dentistry', 'Oral Surgery'],
+  availableService: [
+    { '@type': 'MedicalProcedure', name: 'Implant dentar' },
+    { '@type': 'MedicalProcedure', name: 'Implantologie' },
+    { '@type': 'MedicalProcedure', name: 'Sinus lift' },
+    { '@type': 'MedicalProcedure', name: 'Adiție osoasă' },
+    { '@type': 'MedicalProcedure', name: 'All-on-X' },
+    { '@type': 'MedicalProcedure', name: 'Chirurgie dento-alveolară' },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+
+const sectionStyle: React.CSSProperties = {
+  padding: '72px 20px',
+};
+
+const containerStyle: React.CSSProperties = {
+  maxWidth: '1180px',
+  margin: '0 auto',
+};
+
+const cardStyle: React.CSSProperties = {
+  background: '#ffffff',
+  border: '1px solid #e5e7eb',
+  borderRadius: '18px',
+  padding: '24px',
+  boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
+};
+
+export default function HomePage() {
   return (
-    <main className="bg-white text-slate-900">
+    <main style={{ background: '#f8fafc', color: '#0f172a' }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <section className="relative overflow-hidden border-b border-slate-200 bg-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(241,245,249,0.95),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(226,232,240,0.8),transparent_30%)]" />
-
-        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-8 lg:py-20">
-          <div className="max-w-3xl">
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600 shadow-sm sm:px-4 sm:text-sm">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-slate-900" />
-              <span className="truncate">
-                Implant dentar Buzău · Implantologie · Chirurgie
-              </span>
-            </div>
-
-            <h1 className="mt-5 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl lg:text-6xl">
-              Implant dentar în Buzău — tratamente moderne, planificate atent
-            </h1>
-
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              La Clinica Dr. Miu, tratamentele de implant dentar și reabilitare
-              orală sunt realizate pe baza unei evaluări clinice complete, a
-              investigațiilor imagistice și a unei planificări orientate spre
-              funcție, estetică și predictibilitate.
-            </p>
-
-            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Fie că este vorba despre un singur dinte lipsă sau despre o
-              reabilitare extinsă, fiecare caz este analizat individual pentru a
-              alege soluția corectă.
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-slate-950 px-6 text-sm font-medium text-white transition hover:bg-slate-800 sm:w-auto"
-              >
-                Programează o consultație
-              </Link>
-
-              <a
-                href="tel:+40750709716"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full border border-slate-300 bg-white px-6 text-sm font-medium text-slate-900 transition hover:bg-slate-50 sm:w-auto"
-              >
-                Sună acum
-              </a>
-            </div>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <p className="text-sm font-medium text-slate-950">
-                  Evaluare completă
-                </p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Examinare clinică, CBCT și scanare digitală pentru un plan
-                  corect.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <p className="text-sm font-medium text-slate-950">
-                  Planificare predictibilă
-                </p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Accent pe stabilitate, funcție și integrare estetică.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:col-span-2 xl:col-span-1">
-                <p className="text-sm font-medium text-slate-950">
-                  Cazuri simple și complexe
-                </p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  De la implant unic până la reabilitări extinse pe implanturi.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative order-first lg:order-none">
-            <div className="absolute -inset-3 rounded-[2rem] bg-slate-100 blur-2xl sm:-inset-4" />
-
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.08)] sm:rounded-[2rem]">
-              <div className="relative aspect-[4/4.6] sm:aspect-[4/5]">
-                <Image
-                  src="/dr-miu-portrait-v2.jpg"
-                  alt="Dr. Miu - Clinica Dr. Miu"
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 45vw"
-                />
-              </div>
-
-              <div className="border-t border-slate-200 bg-white p-4 sm:p-6">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                      Clinica Dr. Miu
-                    </p>
-                    <h2 className="mt-3 text-xl font-semibold tracking-tight text-slate-950 sm:text-2xl">
-                      Implantologie și chirurgie dento-alveolară
-                    </h2>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
-                      Abordare modernă, bazată pe evaluare atentă, tehnologie
-                      digitală și soluții adaptate fiecărui pacient.
-                    </p>
-                  </div>
-
-                  <div className="w-fit shrink-0 rounded-2xl bg-slate-950 px-4 py-3 text-left text-white shadow-sm sm:text-right">
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-300">
-                      Buzău
-                    </p>
-                    <p className="mt-1 text-sm font-medium">
-                      Clinica Dr. Miu
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
-            <p className="text-base font-semibold text-slate-950">
-              Tehnologie modernă
-            </p>
-            <p className="mt-2 text-sm leading-7 text-slate-600">
-              CBCT, scanare intraorală și planificare digitală pentru cazurile
-              care necesită precizie și predictibilitate.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
-            <p className="text-base font-semibold text-slate-950">
-              Soluții orientate pe pacient
-            </p>
-            <p className="mt-2 text-sm leading-7 text-slate-600">
-              Obiectivul este tratamentul corect, nu doar intervenția în sine:
-              confort, funcție și un zâmbet armonios.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
-            <p className="text-base font-semibold text-slate-950">
-              Reabilitări extinse
-            </p>
-            <p className="mt-2 text-sm leading-7 text-slate-600">
-              Pentru cazurile complexe, planul de tratament poate include
-              implanturi multiple și lucrări fixe pe implanturi.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-10">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Servicii
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl md:text-5xl">
-              Tratemente gândite pentru stabilitate, estetică și funcție
-            </h2>
-          </div>
-
-          <div className="space-y-4 text-base leading-7 text-slate-600 sm:space-y-5 sm:leading-8">
-            <p>
-              Fiecare tratament este ales în funcție de situația clinică reală,
-              de volumul osos existent și de obiectivele pacientului.
-            </p>
-
-            <p>
-              De la implanturi dentare unice până la reabilitări extinse de tip
-              All-on-X, abordarea noastră urmărește rezultate predictibile și
-              confort pe termen lung.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service) => (
-            <Link
-              key={service.href}
-              href={service.href}
-              className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:p-6"
-            >
-              <h3 className="text-xl font-semibold tracking-tight text-slate-950">
-                {service.title}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                {service.description}
-              </p>
-              <div className="mt-5 text-sm font-medium text-slate-900">
-                Vezi pagina →
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="mb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-            Cazuri clinice reale
-          </p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-            Tratament modern, rezultate reale
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:leading-8">
-            Vezi modul în care abordăm cazurile clinice, de la implant dentar
-            imediat în zona frontală până la reabilitări extinse ale maxilarului.
-          </p>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          <Link
-            href="/caz-clinic-fractura-incisiv-central"
-            className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:rounded-[2rem]"
+      <section
+        style={{
+          padding: '88px 20px 72px',
+          background:
+            'linear-gradient(180deg, #eff6ff 0%, #f8fafc 45%, #ffffff 100%)',
+        }}
+      >
+        <div style={containerStyle}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '32px',
+              alignItems: 'center',
+            }}
           >
-            <div className="relative aspect-[16/10]">
-              <Image
-                src="/caz-fractura-incisiv-1.jpg"
-                alt="Caz clinic fractură incisiv central și implant imediat"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-
-            <div className="p-5 sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                Caz clinic
-              </p>
-              <h3 className="mt-3 text-xl font-semibold tracking-tight text-slate-950 sm:text-2xl">
-                Implant dentar imediat după fractură de incisiv central
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                Extracție, inserare implant și dinte provizoriu în aceeași
-                ședință, cu planificare digitală și ghid chirurgical.
-              </p>
-              <div className="mt-5 text-sm font-medium text-slate-900">
-                Vezi cazul clinic →
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            href="/reabilitare-maxilar-cu-6-implanturi"
-            className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:rounded-[2rem]"
-          >
-            <div className="relative aspect-[16/10]">
-              <Image
-                src="/caz-maxilar-1.jpg"
-                alt="Caz clinic reabilitare maxilar cu 6 implanturi"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-
-            <div className="p-5 sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                Caz clinic
-              </p>
-              <h3 className="mt-3 text-xl font-semibold tracking-tight text-slate-950 sm:text-2xl">
-                Reabilitare maxilar cu 6 implanturi dentare
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                Pacient cu lucrare veche compromisă, evaluat imagistic și tratat
-                printr-un plan de reabilitare fixă pe 6 implanturi maxilare.
-              </p>
-              <div className="mt-5 text-sm font-medium text-slate-900">
-                Vezi cazul clinic →
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 sm:rounded-[2rem] sm:p-8 md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-                Reabilitări extinse
+              <p
+                style={{
+                  margin: '0 0 16px',
+                  color: '#1d4ed8',
+                  fontWeight: 700,
+                  letterSpacing: '0.02em',
+                }}
+              >
+                Clinica Dr. Miu · Buzău
               </p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                All-on-X și soluții fixe pe implanturi
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-700 sm:leading-8">
-                În anumite cazuri, pacienții cu pierderi dentare extinse sau cu
-                lucrări vechi compromise pot beneficia de o reabilitare fixă pe
-                implanturi. Indicația este stabilită după o evaluare atentă și
-                nu este identică pentru toți pacienții.
+
+              <h1
+                style={{
+                  fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+                  lineHeight: 1.1,
+                  margin: '0 0 20px',
+                  fontWeight: 800,
+                }}
+              >
+                Implant dentar în Buzău, cu evaluare completă și planificare
+                atentă pentru rezultate funcționale și estetice
+              </h1>
+
+              <p
+                style={{
+                  fontSize: '1.12rem',
+                  lineHeight: 1.8,
+                  margin: '0 0 28px',
+                  color: '#334155',
+                  maxWidth: '760px',
+                }}
+              >
+                La Clinica Dr. Miu, tratamentele de{' '}
+                <strong>implant dentar în Buzău</strong>,{' '}
+                <strong>implantologie</strong> și{' '}
+                <strong>chirurgie dento-alveolară</strong> sunt stabilite pe
+                baza unei examinări clinice complete, a investigațiilor
+                imagistice și a unei planificări orientate către funcție,
+                estetică și predictibilitate. Fie că este vorba despre un singur
+                dinte lipsă sau despre o reabilitare extinsă, fiecare caz este
+                analizat individual.
               </p>
-              <div className="mt-6">
-                <Link
-                  href="/all-on-x-buzau"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-full bg-slate-950 px-6 text-sm font-medium text-white transition hover:bg-slate-800 sm:w-auto"
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '14px',
+                  marginBottom: '28px',
+                }}
+              >
+                <a
+                  href="tel:+40750709716"
+                  style={{
+                    background: '#1d4ed8',
+                    color: '#ffffff',
+                    padding: '14px 22px',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                  }}
                 >
-                  Vezi pagina All-on-X
-                </Link>
+                  Sună acum
+                </a>
+
+                <a
+                  href="https://wa.me/40750709716"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    background: '#ffffff',
+                    color: '#0f172a',
+                    padding: '14px 22px',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    border: '1px solid #cbd5e1',
+                  }}
+                >
+                  Scrie pe WhatsApp
+                </a>
+
+                <a
+                  href="#programare"
+                  style={{
+                    background: '#ffffff',
+                    color: '#0f172a',
+                    padding: '14px 22px',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    border: '1px solid #cbd5e1',
+                  }}
+                >
+                  Programează o consultație
+                </a>
+              </div>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                  gap: '12px',
+                }}
+              >
+                {[
+                  'Evaluare clinică și imagistică',
+                  'CBCT și scanare digitală',
+                  'Plan de tratament personalizat',
+                  'Cazuri simple și complexe',
+                ].map((item) => (
+                  <div
+                    key={item}
+                    style={{
+                      background: '#ffffff',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '14px',
+                      padding: '14px 16px',
+                      fontWeight: 600,
+                      color: '#1e293b',
+                    }}
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-              <p className="text-sm font-semibold text-slate-950">
-                Ce analizăm înainte de tratament
+            <div style={cardStyle}>
+              <p
+                style={{
+                  marginTop: 0,
+                  marginBottom: '12px',
+                  color: '#1d4ed8',
+                  fontWeight: 700,
+                }}
+              >
+                De ce aleg pacienții Clinica Dr. Miu
               </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-                <li>• Volumul osos disponibil</li>
-                <li>• Situația protetică existentă</li>
-                <li>• Statusul gingival și igiena</li>
-                <li>• Funcția masticatorie și ocluzia</li>
-                <li>• Obiectivele funcționale și estetice ale pacientului</li>
+
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: '18px',
+                  fontSize: '1.8rem',
+                  lineHeight: 1.25,
+                }}
+              >
+                Tratament corect, nu doar o intervenție punctuală
+              </h2>
+
+              <p style={{ color: '#334155', lineHeight: 1.8 }}>
+                În implantologie și chirurgie, decizia corectă începe cu o
+                analiză atentă. Scopul nu este doar inserarea unui implant, ci
+                alegerea unei soluții potrivite pentru situația clinică reală a
+                pacientului, astfel încât rezultatul să fie stabil, funcțional
+                și armonios.
+              </p>
+
+              <ul
+                style={{
+                  paddingLeft: '20px',
+                  color: '#334155',
+                  lineHeight: 1.9,
+                  marginTop: '18px',
+                  marginBottom: 0,
+                }}
+              >
+                <li>Accent pe diagnostic și planificare predictibilă</li>
+                <li>
+                  Abordare personalizată pentru implant dentar și reabilitări
+                  extinse
+                </li>
+                <li>Integrare între estetică, funcție și stabilitate</li>
+                <li>
+                  Soluții adaptate inclusiv cazurilor care necesită sinus lift
+                  sau adiție osoasă
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 pb-14 sm:px-6 sm:py-10 lg:px-8 lg:pb-20">
-        <div className="rounded-[1.75rem] bg-slate-950 px-5 py-8 text-white sm:rounded-[2rem] sm:px-8 sm:py-10 md:px-10">
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+      <section id="despre" style={sectionStyle}>
+        <div style={containerStyle}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '28px',
+              alignItems: 'start',
+            }}
+          >
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                Vrei să afli ce soluție este potrivită pentru cazul tău?
+              <p
+                style={{
+                  color: '#1d4ed8',
+                  fontWeight: 700,
+                  margin: '0 0 12px',
+                }}
+              >
+                Implantologie și chirurgie dento-alveolară în Buzău
+              </p>
+
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: '18px',
+                  fontSize: '2rem',
+                  lineHeight: 1.2,
+                }}
+              >
+                O abordare bazată pe evaluare, tehnologie și decizii corecte
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:leading-8">
-                Programează o consultație la Clinica Dr. Miu din Buzău pentru
-                evaluare clinică, investigații imagistice și un plan de
-                tratament personalizat.
+
+              <p style={{ color: '#334155', lineHeight: 1.9, marginBottom: 16 }}>
+                Clinica Dr. Miu este orientată către tratamente de{' '}
+                <strong>implantologie în Buzău</strong> și{' '}
+                <strong>chirurgie dento-alveolară</strong>, cu accent pe
+                analiza atentă a fiecărui caz și pe stabilirea unei soluții
+                potrivite pe termen lung. Înainte de tratament, sunt luate în
+                calcul contextul clinic, investigațiile imagistice, volumul osos
+                disponibil, statusul gingival și obiectivele pacientului.
+              </p>
+
+              <p style={{ color: '#334155', lineHeight: 1.9, margin: 0 }}>
+                Pentru pacient, acest lucru înseamnă mai multă claritate, mai
+                multă siguranță în decizie și un plan realist, construit în
+                funcție de nevoile reale ale cazului, nu după un model general.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-slate-950 transition hover:bg-slate-100 sm:w-auto"
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr',
+                gap: '16px',
+              }}
+            >
+              <div style={cardStyle}>
+                <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                  Evaluare completă
+                </h3>
+                <p style={{ margin: 0, color: '#334155', lineHeight: 1.8 }}>
+                  Examinare clinică, analiză imagistică și integrarea
+                  informațiilor necesare pentru un plan de tratament corect.
+                </p>
+              </div>
+
+              <div style={cardStyle}>
+                <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                  Tehnologie digitală
+                </h3>
+                <p style={{ margin: 0, color: '#334155', lineHeight: 1.8 }}>
+                  CBCT și scanare digitală pentru cazurile în care precizia și
+                  predictibilitatea sunt esențiale.
+                </p>
+              </div>
+
+              <div style={cardStyle}>
+                <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                  Soluții adaptate cazului
+                </h3>
+                <p style={{ margin: 0, color: '#334155', lineHeight: 1.8 }}>
+                  De la un implant unic până la reabilitări extinse de tip{' '}
+                  <strong>All-on-X în Buzău</strong>, recomandarea se face
+                  individual, în funcție de particularitățile fiecărui pacient.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="servicii"
+        style={{
+          ...sectionStyle,
+          background: '#ffffff',
+        }}
+      >
+        <div style={containerStyle}>
+          <p
+            style={{
+              color: '#1d4ed8',
+              fontWeight: 700,
+              margin: '0 0 12px',
+            }}
+          >
+            Servicii
+          </p>
+
+          <h2
+            style={{
+              marginTop: 0,
+              marginBottom: '18px',
+              fontSize: '2rem',
+              lineHeight: 1.2,
+            }}
+          >
+            Tratemente orientate spre stabilitate, funcție și estetică
+          </h2>
+
+          <p
+            style={{
+              maxWidth: '860px',
+              color: '#334155',
+              lineHeight: 1.9,
+              marginTop: 0,
+              marginBottom: '34px',
+            }}
+          >
+            Fiecare tratament este ales în funcție de situația clinică reală, de
+            obiectivele funcționale și estetice și de condițiile locale existente.
+            În funcție de caz, planul de tratament poate include{' '}
+            <strong>implant dentar</strong>, proceduri de{' '}
+            <strong>sinus lift</strong>, <strong>adiție osoasă</strong>,{' '}
+            <strong>All-on-X</strong> sau alte intervenții de{' '}
+            <strong>chirurgie dento-alveolară în Buzău</strong>.
+          </p>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '20px',
+            }}
+          >
+            {services.map((service) => (
+              <article key={service.title} style={cardStyle}>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: '12px',
+                    fontSize: '1.25rem',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {service.title}
+                </h3>
+                <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
+                  {service.text}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={sectionStyle}>
+        <div style={containerStyle}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '24px',
+            }}
+          >
+            <div style={cardStyle}>
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: '14px',
+                  fontSize: '1.8rem',
+                  lineHeight: 1.25,
+                }}
+              >
+                Cum decurge evaluarea inițială
+              </h2>
+              <p style={{ color: '#334155', lineHeight: 1.85, marginTop: 0 }}>
+                Înainte de a recomanda un tratament, sunt analizate toate
+                elementele importante pentru succesul și predictibilitatea
+                rezultatului.
+              </p>
+              <ol
+                style={{
+                  paddingLeft: '20px',
+                  color: '#334155',
+                  lineHeight: 1.9,
+                  margin: 0,
+                }}
+              >
+                <li>Examinare clinică atentă</li>
+                <li>Discuție despre istoricul medical și dentar</li>
+                <li>Analiză imagistică și, când este necesar, CBCT</li>
+                <li>Evaluarea volumului osos și a statusului gingival</li>
+                <li>Stabilirea unui plan personalizat de tratament</li>
+              </ol>
+            </div>
+
+            <div style={cardStyle}>
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: '14px',
+                  fontSize: '1.8rem',
+                  lineHeight: 1.25,
+                }}
+              >
+                Ce este analizat înainte de tratament
+              </h2>
+              <ul
+                style={{
+                  paddingLeft: '20px',
+                  color: '#334155',
+                  lineHeight: 1.9,
+                  margin: 0,
+                }}
+              >
+                <li>Volumul osos disponibil</li>
+                <li>Situația protetică existentă</li>
+                <li>Statusul gingival și nivelul de igienă</li>
+                <li>Funcția masticatorie și ocluzia</li>
+                <li>Obiectivele funcționale și estetice ale pacientului</li>
+                <li>Necesitatea unor proceduri auxiliare, dacă este cazul</li>
+              </ul>
+            </div>
+
+            <div style={cardStyle}>
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: '14px',
+                  fontSize: '1.8rem',
+                  lineHeight: 1.25,
+                }}
+              >
+                Pentru cine poate fi potrivit tratamentul
+              </h2>
+              <p style={{ color: '#334155', lineHeight: 1.85, marginTop: 0 }}>
+                Consultația este potrivită pentru pacienții care:
+              </p>
+              <ul
+                style={{
+                  paddingLeft: '20px',
+                  color: '#334155',
+                  lineHeight: 1.9,
+                  margin: 0,
+                }}
+              >
+                <li>au unul sau mai mulți dinți lipsă</li>
+                <li>au lucrări vechi compromise</li>
+                <li>vor să afle dacă implantul dentar este o opțiune</li>
+                <li>au nevoie de o a doua opinie pentru un caz complex</li>
+                <li>
+                  doresc o soluție fixă pe implanturi după o evaluare corectă
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        style={{
+          ...sectionStyle,
+          background: '#ffffff',
+        }}
+      >
+        <div style={containerStyle}>
+          <p
+            style={{
+              color: '#1d4ed8',
+              fontWeight: 700,
+              margin: '0 0 12px',
+            }}
+          >
+            Cazuri clinice
+          </p>
+
+          <h2
+            style={{
+              marginTop: 0,
+              marginBottom: '16px',
+              fontSize: '2rem',
+              lineHeight: 1.2,
+            }}
+          >
+            Tratament modern, planificat atent, adaptat fiecărui caz
+          </h2>
+
+          <p
+            style={{
+              color: '#334155',
+              lineHeight: 1.9,
+              maxWidth: '880px',
+              marginTop: 0,
+              marginBottom: '28px',
+            }}
+          >
+            În implantologie și chirurgie, fiecare caz are particularitățile lui.
+            De aceea, modul de abordare trebuie să țină cont de diagnosticul
+            real, de structurile anatomice, de volumul osos disponibil și de
+            obiectivele pacientului. De la un implant imediat în zona frontală
+            până la reabilitări extinse pe implanturi, tratamentul este ales în
+            funcție de ceea ce este corect și predictibil pentru fiecare situație.
+          </p>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '20px',
+            }}
+          >
+            <article style={cardStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                Implant dentar imediat după fractură dentară
+              </h3>
+              <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
+                În anumite cazuri, extracția, inserarea implantului și provizoratul
+                pot face parte din același plan terapeutic, atunci când indicația
+                este corectă și condițiile clinice permit acest lucru.
+              </p>
+            </article>
+
+            <article style={cardStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                Reabilitare extinsă pe implanturi
+              </h3>
+              <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
+                Cazurile cu edentații multiple sau lucrări vechi compromise pot
+                necesita o abordare complexă, etapizată, cu analiză atentă și
+                planificare riguroasă.
+              </p>
+            </article>
+
+            <article style={cardStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                Soluții personalizate pentru cazuri dificile
+              </h3>
+              <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
+                În unele situații, tratamentul poate include proceduri auxiliare
+                precum <strong>sinus lift</strong> sau{' '}
+                <strong>adiție osoasă</strong>, pentru a crea condițiile necesare
+                unei reabilitări stabile.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" style={sectionStyle}>
+        <div style={containerStyle}>
+          <p
+            style={{
+              color: '#1d4ed8',
+              fontWeight: 700,
+              margin: '0 0 12px',
+            }}
+          >
+            Întrebări frecvente
+          </p>
+
+          <h2
+            style={{
+              marginTop: 0,
+              marginBottom: '28px',
+              fontSize: '2rem',
+              lineHeight: 1.2,
+            }}
+          >
+            Informații utile despre implant dentar și reabilitare orală
+          </h2>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              gap: '16px',
+            }}
+          >
+            {faqItems.map((item) => (
+              <article key={item.question} style={cardStyle}>
+                <h3
+                  style={{
+                    marginTop: 0,
+                    marginBottom: '10px',
+                    fontSize: '1.18rem',
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {item.question}
+                </h3>
+                <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
+                  {item.answer}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        style={{
+          ...sectionStyle,
+          background: '#0f172a',
+          color: '#ffffff',
+        }}
+        id="programare"
+      >
+        <div style={containerStyle}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '28px',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <p
+                style={{
+                  color: '#93c5fd',
+                  fontWeight: 700,
+                  margin: '0 0 12px',
+                }}
               >
                 Programează o consultație
-              </Link>
+              </p>
 
-              <a
-                href="tel:+40750709716"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white/20 px-6 text-sm font-medium text-white transition hover:bg-white/10 sm:w-auto"
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: '16px',
+                  fontSize: '2.1rem',
+                  lineHeight: 1.2,
+                }}
               >
-                Sună acum
-              </a>
+                Vrei să afli ce soluție este potrivită pentru cazul tău?
+              </h2>
+
+              <p
+                style={{
+                  color: '#cbd5e1',
+                  lineHeight: 1.9,
+                  marginTop: 0,
+                  marginBottom: 0,
+                  maxWidth: '760px',
+                }}
+              >
+                Dacă ai nevoie de un <strong>implant dentar în Buzău</strong>,
+                de o opinie privind un caz complex sau de o evaluare pentru{' '}
+                <strong>All-on-X</strong>, <strong>sinus lift</strong> ori{' '}
+                <strong>adiție osoasă</strong>, primul pas este consultația. În
+                cadrul acesteia, sunt analizate particularitățile clinice și sunt
+                discutate opțiunile de tratament potrivite pentru situația ta.
+              </p>
+            </div>
+
+            <div
+              style={{
+                ...cardStyle,
+                background: '#ffffff',
+                color: '#0f172a',
+              }}
+            >
+              <h3 style={{ marginTop: 0, marginBottom: '16px' }}>
+                Date de contact
+              </h3>
+
+              <p style={{ margin: '0 0 10px', lineHeight: 1.8 }}>
+                <strong>Adresă:</strong> Str. Penteleu 16, Buzău
+              </p>
+              <p style={{ margin: '0 0 10px', lineHeight: 1.8 }}>
+                <strong>Telefon:</strong>{' '}
+                <a
+                  href="tel:+40750709716"
+                  style={{ color: '#1d4ed8', textDecoration: 'none' }}
+                >
+                  0750 709 716
+                </a>
+              </p>
+              <p style={{ margin: '0 0 22px', lineHeight: 1.8 }}>
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:contact@clinicadrmiu.ro"
+                  style={{ color: '#1d4ed8', textDecoration: 'none' }}
+                >
+                  contact@clinicadrmiu.ro
+                </a>
+              </p>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                }}
+              >
+                <a
+                  href="tel:+40750709716"
+                  style={{
+                    background: '#1d4ed8',
+                    color: '#ffffff',
+                    padding: '13px 20px',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                  }}
+                >
+                  Sună acum
+                </a>
+
+                <a
+                  href="https://wa.me/40750709716"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    background: '#e2e8f0',
+                    color: '#0f172a',
+                    padding: '13px 20px',
+                    borderRadius: '999px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                  }}
+                >
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>
