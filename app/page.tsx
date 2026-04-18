@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://clinicadrmiu.ro'),
@@ -159,6 +160,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
+      {/* ── HERO ── */}
       <section
         style={{
           padding: '88px 20px 72px',
@@ -240,7 +242,6 @@ export default function HomePage() {
                 >
                   Sună acum
                 </a>
-
                 <a
                   href="https://wa.me/40750709716"
                   target="_blank"
@@ -257,7 +258,6 @@ export default function HomePage() {
                 >
                   Scrie pe WhatsApp
                 </a>
-
                 <a
                   href="#programare"
                   style={{
@@ -315,7 +315,6 @@ export default function HomePage() {
               >
                 De ce aleg pacienții Clinica Dr. Miu
               </p>
-
               <h2
                 style={{
                   marginTop: 0,
@@ -326,7 +325,6 @@ export default function HomePage() {
               >
                 Tratament corect, nu doar o intervenție punctuală
               </h2>
-
               <p style={{ color: '#334155', lineHeight: 1.8 }}>
                 În implantologie și chirurgie, decizia corectă începe cu o
                 analiză atentă. Scopul nu este doar inserarea unui implant, ci
@@ -334,7 +332,6 @@ export default function HomePage() {
                 pacientului, astfel încât rezultatul să fie stabil, funcțional
                 și armonios.
               </p>
-
               <ul
                 style={{
                   paddingLeft: '20px',
@@ -360,6 +357,176 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── DR. MIU ── */}
+      <section
+        id="despre-medic"
+        style={{
+          padding: '72px 20px',
+          background: '#ffffff',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1180px',
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '48px',
+            alignItems: 'center',
+          }}
+        >
+          {/* Poza */}
+          <div
+            style={{
+              position: 'relative',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.12)',
+              aspectRatio: '3/4',
+              maxWidth: '460px',
+              width: '100%',
+              margin: '0 auto',
+            }}
+          >
+            <Image
+              src="/dr-miu-portrait-v2.jpg"
+              alt="Dr. Cosmin Miu — medic specialist implantologie și chirurgie dento-alveolară Buzău"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center top' }}
+              priority
+              sizes="(max-width: 768px) 100vw, 460px"
+            />
+          </div>
+
+          {/* Text */}
+          <div>
+            <p
+              style={{
+                color: '#1d4ed8',
+                fontWeight: 700,
+                margin: '0 0 12px',
+                letterSpacing: '0.02em',
+              }}
+            >
+              Medicul tău specialist
+            </p>
+
+            <h2
+              style={{
+                marginTop: 0,
+                marginBottom: '20px',
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
+                lineHeight: 1.15,
+                color: '#0f172a',
+              }}
+            >
+              Dr. Cosmin Miu
+              <br />
+              <span
+                style={{
+                  color: '#475569',
+                  fontSize: '1.2rem',
+                  fontWeight: 500,
+                }}
+              >
+                Implantologie · Chirurgie dento-alveolară
+              </span>
+            </h2>
+
+            <p
+              style={{
+                color: '#334155',
+                lineHeight: 1.9,
+                marginBottom: '16px',
+                fontSize: '1.05rem',
+              }}
+            >
+              Activitatea mea clinică este orientată exclusiv către{' '}
+              <strong>implantologie și chirurgie dento-alveolară</strong>.
+              Fiecare caz pe care îl tratez este analizat individual, pe baza
+              investigațiilor imagistice, a evaluării clinice complete și a
+              obiectivelor reale ale pacientului.
+            </p>
+
+            <p
+              style={{
+                color: '#334155',
+                lineHeight: 1.9,
+                marginBottom: '28px',
+                fontSize: '1.05rem',
+              }}
+            >
+              Cred că un tratament bun începe cu o decizie corectă — nu cu o
+              intervenție grăbită. De aceea, consultația inițială este
+              întotdeauna orientată spre înțelegerea situației clinice reale,
+              înainte de orice recomandare.
+            </p>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '12px',
+                marginBottom: '28px',
+              }}
+            >
+              {[
+                'Implantologie digitală',
+                'Chirurgie ghidată',
+                'Reabilitări complexe',
+                'Sinus lift & adiție osoasă',
+              ].map((item) => (
+                <div
+                  key={item}
+                  style={{
+                    background: '#f1f5f9',
+                    borderRadius: '12px',
+                    padding: '12px 16px',
+                    fontWeight: 600,
+                    color: '#1e293b',
+                    fontSize: '0.92rem',
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+              <a
+                href="tel:+40750709716"
+                style={{
+                  background: '#1d4ed8',
+                  color: '#ffffff',
+                  padding: '13px 22px',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                Programează o consultație
+              </a>
+              <a
+                href="https://wa.me/40750709716"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  background: '#f1f5f9',
+                  color: '#0f172a',
+                  padding: '13px 22px',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DESPRE CLINICĂ ── */}
       <section id="despre" style={sectionStyle}>
         <div style={containerStyle}>
           <div
@@ -380,7 +547,6 @@ export default function HomePage() {
               >
                 Implantologie și chirurgie dento-alveolară în Buzău
               </p>
-
               <h2
                 style={{
                   marginTop: 0,
@@ -391,7 +557,6 @@ export default function HomePage() {
               >
                 O abordare bazată pe evaluare, tehnologie și decizii corecte
               </h2>
-
               <p style={{ color: '#334155', lineHeight: 1.9, marginBottom: 16 }}>
                 Clinica Dr. Miu este orientată către tratamente de{' '}
                 <strong>implantologie în Buzău</strong> și{' '}
@@ -401,7 +566,6 @@ export default function HomePage() {
                 calcul contextul clinic, investigațiile imagistice, volumul osos
                 disponibil, statusul gingival și obiectivele pacientului.
               </p>
-
               <p style={{ color: '#334155', lineHeight: 1.9, margin: 0 }}>
                 Pentru pacient, acest lucru înseamnă mai multă claritate, mai
                 multă siguranță în decizie și un plan realist, construit în
@@ -425,7 +589,6 @@ export default function HomePage() {
                   informațiilor necesare pentru un plan de tratament corect.
                 </p>
               </div>
-
               <div style={cardStyle}>
                 <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
                   Tehnologie digitală
@@ -435,7 +598,6 @@ export default function HomePage() {
                   predictibilitatea sunt esențiale.
                 </p>
               </div>
-
               <div style={cardStyle}>
                 <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
                   Soluții adaptate cazului
@@ -451,24 +613,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── SERVICII ── */}
       <section
         id="servicii"
-        style={{
-          ...sectionStyle,
-          background: '#ffffff',
-        }}
+        style={{ ...sectionStyle, background: '#ffffff' }}
       >
         <div style={containerStyle}>
-          <p
-            style={{
-              color: '#1d4ed8',
-              fontWeight: 700,
-              margin: '0 0 12px',
-            }}
-          >
+          <p style={{ color: '#1d4ed8', fontWeight: 700, margin: '0 0 12px' }}>
             Servicii
           </p>
-
           <h2
             style={{
               marginTop: 0,
@@ -477,9 +630,8 @@ export default function HomePage() {
               lineHeight: 1.2,
             }}
           >
-            Tratemente orientate spre stabilitate, funcție și estetică
+            Tratamente orientate spre stabilitate, funcție și estetică
           </h2>
-
           <p
             style={{
               maxWidth: '860px',
@@ -490,14 +642,13 @@ export default function HomePage() {
             }}
           >
             Fiecare tratament este ales în funcție de situația clinică reală, de
-            obiectivele funcționale și estetice și de condițiile locale existente.
-            În funcție de caz, planul de tratament poate include{' '}
+            obiectivele funcționale și estetice și de condițiile locale
+            existente. În funcție de caz, planul de tratament poate include{' '}
             <strong>implant dentar</strong>, proceduri de{' '}
             <strong>sinus lift</strong>, <strong>adiție osoasă</strong>,{' '}
             <strong>All-on-X</strong> sau alte intervenții de{' '}
             <strong>chirurgie dento-alveolară în Buzău</strong>.
           </p>
-
           <div
             style={{
               display: 'grid',
@@ -526,6 +677,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── EVALUARE ── */}
       <section style={sectionStyle}>
         <div style={containerStyle}>
           <div
@@ -630,23 +782,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section
-        style={{
-          ...sectionStyle,
-          background: '#ffffff',
-        }}
-      >
+      {/* ── CAZURI CLINICE ── */}
+      <section style={{ ...sectionStyle, background: '#ffffff' }}>
         <div style={containerStyle}>
-          <p
-            style={{
-              color: '#1d4ed8',
-              fontWeight: 700,
-              margin: '0 0 12px',
-            }}
-          >
+          <p style={{ color: '#1d4ed8', fontWeight: 700, margin: '0 0 12px' }}>
             Cazuri clinice
           </p>
-
           <h2
             style={{
               marginTop: 0,
@@ -657,7 +798,6 @@ export default function HomePage() {
           >
             Tratament modern, planificat atent, adaptat fiecărui caz
           </h2>
-
           <p
             style={{
               color: '#334155',
@@ -667,14 +807,14 @@ export default function HomePage() {
               marginBottom: '28px',
             }}
           >
-            În implantologie și chirurgie, fiecare caz are particularitățile lui.
-            De aceea, modul de abordare trebuie să țină cont de diagnosticul
-            real, de structurile anatomice, de volumul osos disponibil și de
-            obiectivele pacientului. De la un implant imediat în zona frontală
-            până la reabilitări extinse pe implanturi, tratamentul este ales în
-            funcție de ceea ce este corect și predictibil pentru fiecare situație.
+            În implantologie și chirurgie, fiecare caz are particularitățile
+            lui. De aceea, modul de abordare trebuie să țină cont de
+            diagnosticul real, de structurile anatomice, de volumul osos
+            disponibil și de obiectivele pacientului. De la un implant imediat
+            în zona frontală până la reabilitări extinse pe implanturi,
+            tratamentul este ales în funcție de ceea ce este corect și
+            predictibil pentru fiecare situație.
           </p>
-
           <div
             style={{
               display: 'grid',
@@ -687,12 +827,12 @@ export default function HomePage() {
                 Implant dentar imediat după fractură dentară
               </h3>
               <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
-                În anumite cazuri, extracția, inserarea implantului și provizoratul
-                pot face parte din același plan terapeutic, atunci când indicația
-                este corectă și condițiile clinice permit acest lucru.
+                În anumite cazuri, extracția, inserarea implantului și
+                provizoratul pot face parte din același plan terapeutic, atunci
+                când indicația este corectă și condițiile clinice permit acest
+                lucru.
               </p>
             </article>
-
             <article style={cardStyle}>
               <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
                 Reabilitare extinsă pe implanturi
@@ -703,7 +843,6 @@ export default function HomePage() {
                 planificare riguroasă.
               </p>
             </article>
-
             <article style={cardStyle}>
               <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
                 Soluții personalizate pentru cazuri dificile
@@ -711,26 +850,20 @@ export default function HomePage() {
               <p style={{ margin: 0, color: '#334155', lineHeight: 1.85 }}>
                 În unele situații, tratamentul poate include proceduri auxiliare
                 precum <strong>sinus lift</strong> sau{' '}
-                <strong>adiție osoasă</strong>, pentru a crea condițiile necesare
-                unei reabilitări stabile.
+                <strong>adiție osoasă</strong>, pentru a crea condițiile
+                necesare unei reabilitări stabile.
               </p>
             </article>
           </div>
         </div>
       </section>
 
+      {/* ── FAQ ── */}
       <section id="faq" style={sectionStyle}>
         <div style={containerStyle}>
-          <p
-            style={{
-              color: '#1d4ed8',
-              fontWeight: 700,
-              margin: '0 0 12px',
-            }}
-          >
+          <p style={{ color: '#1d4ed8', fontWeight: 700, margin: '0 0 12px' }}>
             Întrebări frecvente
           </p>
-
           <h2
             style={{
               marginTop: 0,
@@ -741,13 +874,8 @@ export default function HomePage() {
           >
             Informații utile despre implant dentar și reabilitare orală
           </h2>
-
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr',
-              gap: '16px',
-            }}
+            style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}
           >
             {faqItems.map((item) => (
               <article key={item.question} style={cardStyle}>
@@ -770,12 +898,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── CONTACT ── */}
       <section
-        style={{
-          ...sectionStyle,
-          background: '#0f172a',
-          color: '#ffffff',
-        }}
+        style={{ ...sectionStyle, background: '#0f172a', color: '#ffffff' }}
         id="programare"
       >
         <div style={containerStyle}>
@@ -797,7 +922,6 @@ export default function HomePage() {
               >
                 Programează o consultație
               </p>
-
               <h2
                 style={{
                   marginTop: 0,
@@ -808,7 +932,6 @@ export default function HomePage() {
               >
                 Vrei să afli ce soluție este potrivită pentru cazul tău?
               </h2>
-
               <p
                 style={{
                   color: '#cbd5e1',
@@ -822,22 +945,18 @@ export default function HomePage() {
                 de o opinie privind un caz complex sau de o evaluare pentru{' '}
                 <strong>All-on-X</strong>, <strong>sinus lift</strong> ori{' '}
                 <strong>adiție osoasă</strong>, primul pas este consultația. În
-                cadrul acesteia, sunt analizate particularitățile clinice și sunt
-                discutate opțiunile de tratament potrivite pentru situația ta.
+                cadrul acesteia, sunt analizate particularitățile clinice și
+                sunt discutate opțiunile de tratament potrivite pentru situația
+                ta.
               </p>
             </div>
 
             <div
-              style={{
-                ...cardStyle,
-                background: '#ffffff',
-                color: '#0f172a',
-              }}
+              style={{ ...cardStyle, background: '#ffffff', color: '#0f172a' }}
             >
               <h3 style={{ marginTop: 0, marginBottom: '16px' }}>
                 Date de contact
               </h3>
-
               <p style={{ margin: '0 0 10px', lineHeight: 1.8 }}>
                 <strong>Adresă:</strong> Str. Penteleu 16, Buzău
               </p>
@@ -859,14 +978,7 @@ export default function HomePage() {
                   contact@clinicadrmiu.ro
                 </a>
               </p>
-
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '12px',
-                }}
-              >
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                 <a
                   href="tel:+40750709716"
                   style={{
@@ -880,7 +992,6 @@ export default function HomePage() {
                 >
                   Sună acum
                 </a>
-
                 <a
                   href="https://wa.me/40750709716"
                   target="_blank"
