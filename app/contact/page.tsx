@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { buildMetadata, dentistJsonLd } from "@/lib/seo";
 import { clinic } from "@/lib/clinic";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Phone, Mail, Clock3 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock3, MessageCircle } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact Clinica Dr. Miu | Implantologie și chirurgie dento-alveolară în Buzău",
@@ -25,7 +25,7 @@ export default function ContactPage() {
       "@type": "Dentist",
       name: "Clinica Dr. Miu",
       url: "https://clinicadrmiu.ro",
-      telephone: clinic.phoneHref?.replace("tel:", "") || clinic.phoneDisplay,
+      telephone: clinic.phoneDisplay,
       email: clinic.email,
       address: {
         "@type": "PostalAddress",
@@ -129,7 +129,8 @@ export default function ContactPage() {
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 Programările se fac simplu și rapid. Alege varianta cea mai
-                comodă pentru tine și te vom ajuta cu toate informațiile necesare.
+                comodă pentru tine și te vom ajuta cu toate informațiile
+                necesare.
               </p>
 
               <div className="mt-8 grid gap-4">
@@ -147,12 +148,50 @@ export default function ContactPage() {
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#1fb95a]"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 32 32"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                    aria-hidden="true"
-                  >
-                    <path d="M19.11 17.21c-.27-.14-1.57-.77-1.81-.86-.24-.09-.42-.14-.6.14-.18.27-.69.86-.85 1.03-.16.18-.31.2-.58.07-.27-.14-1.12-.41-2.14-1.31-.79-.71-1.33-1.58-1.49-1.85-.16-.27-.02-.42.12-.56.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.04-.34-.02-.47-.07-.14-.6-1.45-.82-1.98-.22-.52-.44-.45-.6-.46h-.51c-.18 0-.46.07-.7.34-.24.27-.92.9-.92 2.2s.95 2.56 1.08 2.73c.13.18 1.86 2.84 4.51 3.99.63.27 1.12.43 1.5.55.63.2 1.21.17 1.66.1.51-.08 1.57-.64 1.79-1.26.22-.62.22-1.15.16-1.26-.07-.11-.24-.18-.51-.31Z" />
-                    <path d="M16 3C8.83 3 3 8.83 3 16c0 2.29.6 4.44 1.64 6.31L3.21 29l6.85-1.8A12.94 12.94 0 0 0 16 29c7.17
+                  <MessageCircle className="h-4 w-4" />
+                  Contact pe WhatsApp
+                </a>
+
+                <a
+                  href={`mailto:${clinic.email}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 px-6 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                >
+                  <Mail className="h-4 w-4" />
+                  Trimite email
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <div className="mb-6 max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+            Locație
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+            Cum ajungi la clinică
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600">
+            Clinica este situată pe Strada Penteleu, numărul 16, în Buzău.
+            Poți folosi harta de mai jos pentru orientare rapidă.
+          </p>
+        </div>
+
+        <div className="overflow-hidden rounded-[2rem] border border-slate-200 shadow-sm">
+          <iframe
+            title="Locația Clinicii Dr. Miu pe Google Maps"
+            src="https://maps.google.com/maps?q=Strada%20Penteleu%2016%2C%20Buz%C4%83u&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="460"
+            style={{ border: 0, display: "block" }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      </section>
+    </main>
+  );
+}
