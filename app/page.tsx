@@ -210,8 +210,87 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ── STILURI SLIDER CSS ── */}
+      {/* ── STILURI SLIDER CSS + VIDEO MODAL ── */}
       <style>{`
+        /* VIDEO MODAL */
+        .video-modal-toggle { display: none; }
+        .video-modal-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.85);
+          z-index: 9999;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .video-modal-toggle:checked ~ .video-modal-overlay {
+          display: flex;
+        }
+        .video-modal-box {
+          position: relative;
+          width: 100%;
+          max-width: 900px;
+          border-radius: 20px;
+          overflow: hidden;
+          background: #000;
+          box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+        }
+        .video-modal-box video {
+          width: 100%;
+          display: block;
+        }
+        .video-modal-close {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          width: 40px;
+          height: 40px;
+          background: rgba(255,255,255,0.15);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 1.4rem;
+          color: #fff;
+          line-height: 1;
+          text-decoration: none;
+          backdrop-filter: blur(4px);
+          transition: background 0.2s;
+        }
+        .video-modal-close:hover { background: rgba(255,255,255,0.3); }
+        .video-play-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          background: #ffffff;
+          color: #0f172a;
+          padding: 16px 28px;
+          border-radius: 999px;
+          font-weight: 700;
+          font-size: 1rem;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+          transition: transform 0.2s, box-shadow 0.2s;
+          text-decoration: none;
+        }
+        .video-play-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+        }
+        .video-play-icon {
+          width: 44px;
+          height: 44px;
+          background: #1d4ed8;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        /* REVIEWS SLIDER */
         .reviews-track {
           display: flex;
           overflow-x: auto;
@@ -613,6 +692,145 @@ export default function HomePage() {
                 WhatsApp
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VIDEO MODAL (CSS-only, fără useState) ── */}
+      <input type="checkbox" id="video-modal-toggle" className="video-modal-toggle" />
+      <label htmlFor="video-modal-toggle" className="video-modal-overlay">
+        <div className="video-modal-box" onClick={(e) => e.stopPropagation()}>
+          <video
+            controls
+            preload="none"
+            style={{ width: "100%", display: "block" }}
+          >
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+          <label htmlFor="video-modal-toggle" className="video-modal-close" title="Închide">✕</label>
+        </div>
+      </label>
+
+      {/* ── VIDEO SECTION ── */}
+      <section
+        style={{
+          padding: "72px 20px",
+          background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)",
+          color: "#ffffff",
+        }}
+      >
+        <div style={containerStyle}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "48px",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <p style={{ color: "#93c5fd", fontWeight: 700, margin: "0 0 12px", letterSpacing: "0.02em" }}>
+                Clinica Dr. Miu în acțiune
+              </p>
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: "20px",
+                  fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                  lineHeight: 1.15,
+                  color: "#ffffff",
+                }}
+              >
+                Planificare digitală, intervenții precise și o echipă dedicată
+              </h2>
+              <p style={{ color: "#cbd5e1", lineHeight: 1.9, marginBottom: "32px", fontSize: "1.05rem" }}>
+                De la analiza 3D cu software exocad până la intervenția propriu-zisă — fiecare etapă este gândită pentru siguranță, precizie și confortul pacientului.
+              </p>
+              <label htmlFor="video-modal-toggle" className="video-play-btn">
+                <span className="video-play-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+                Vizionează clipul
+              </label>
+            </div>
+
+            {/* Thumbnail card */}
+            <label
+              htmlFor="video-modal-toggle"
+              style={{
+                display: "block",
+                position: "relative",
+                borderRadius: "24px",
+                overflow: "hidden",
+                cursor: "pointer",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.4)",
+                aspectRatio: "16/9",
+                background: "#1e293b",
+              }}
+            >
+              {/* Poster / thumbnail */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundImage: "url('/dr-miu-portrait-v2.jpg')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center top",
+                  filter: "brightness(0.55)",
+                }}
+              />
+              {/* Play button overlay */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "16px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "72px",
+                    height: "72px",
+                    background: "rgba(255,255,255,0.95)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="#1d4ed8">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p style={{ color: "#ffffff", fontWeight: 700, margin: 0, fontSize: "1rem", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+                  Apasă pentru a viziona
+                </p>
+              </div>
+              {/* Duration badge */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "16px",
+                  right: "16px",
+                  background: "rgba(0,0,0,0.7)",
+                  color: "#ffffff",
+                  borderRadius: "8px",
+                  padding: "4px 10px",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  backdropFilter: "blur(4px)",
+                }}
+              >
+                🎬 Clinica Dr. Miu
+              </div>
+            </label>
           </div>
         </div>
       </section>
