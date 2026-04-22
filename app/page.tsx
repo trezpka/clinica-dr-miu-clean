@@ -699,7 +699,7 @@ export default function HomePage() {
       {/* ── VIDEO MODAL (CSS-only, fără useState) ── */}
       <input type="checkbox" id="video-modal-toggle" className="video-modal-toggle" />
       <label htmlFor="video-modal-toggle" className="video-modal-overlay">
-        <div className="video-modal-box" onClick={(e) => e.stopPropagation()}>
+        <div className="video-modal-box">
           <video
             controls
             preload="none"
