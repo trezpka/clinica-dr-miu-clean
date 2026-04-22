@@ -1,56 +1,63 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import { Suspense } from "react";
-import "./globals.css";
-import { clinic } from "@/lib/clinic";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { MobileCallBar } from "@/components/mobile-call-bar";
-import { GoogleAnalytics } from "@/components/google-analytics";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import Navbar from '@/components/Navbar'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(clinic.domain),
-  title: clinic.name,
-  description: "Implantologie și chirurgie dento-alveolară în Buzău.",
-};
+  title: 'Clinica Dr. Miu — Implant Dentar Buzău | Chirurgie Dento-Alveolară',
+  description:
+    'Clinica Dr. Miu din Buzău oferă servicii premium de implantologie și chirurgie dento-alveolară. Peste 500 de implanturi inserate cu succes. Programează-te acum.',
+  keywords: [
+    'implant dentar Buzău',
+    'implantologie Buzău',
+    'chirurgie dento-alveolară',
+    'clinica Dr. Miu',
+    'medic implantolog Buzău',
+  ],
+  authors: [{ name: 'Dr. Cosmin Miu' }],
+  metadataBase: new URL('https://clinicadrmiu.ro'),
+  openGraph: {
+    title: 'Clinica Dr. Miu — Implant Dentar Buzău',
+    description:
+      'Specialist în implantologie și chirurgie dento-alveolară în Buzău. Peste 500 de implanturi inserate cu succes.',
+    url: 'https://clinicadrmiu.ro',
+    siteName: 'Clinica Dr. Miu',
+    locale: 'ro_RO',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Clinica Dr. Miu — Implant Dentar Buzău',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Clinica Dr. Miu — Implant Dentar Buzău',
+    description: 'Specialist în implantologie și chirurgie dento-alveolară în Buzău.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="ro">
-      <head>
-        {/* GOOGLE ANALYTICS */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-BN8R5LYNDK"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', 'G-BN8R5LYNDK');
-          `}
-        </Script>
-      </head>
-
-      <body className="min-h-screen bg-white pb-32 text-slate-800 antialiased md:pb-0">
-        
-        {/* FIX IMPORTANT pentru Next.js */}
-        <Suspense fallback={null}>
-          <GoogleAnalytics />
-        </Suspense>
-
-        <SiteHeader />
-        {children}
-        <SiteFooter />
-        <MobileCallBar />
-
+      <body className={inter.className}>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
-  );
+  )
 }
