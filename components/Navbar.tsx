@@ -1,48 +1,87 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState } from 'react'
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-full bg-white/90 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50 shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-
+    <header
+      style={{
+        width: "100%",
+        background: "rgba(255,255,255,0.95)",
+        backdropFilter: "blur(8px)",
+        borderBottom: "1px solid #e5e7eb",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        boxShadow: "0 2px 20px rgba(0,0,0,0.06)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1180px",
+          margin: "0 auto",
+          padding: "0 20px",
+          height: "72px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Image
             src="/logo-premium.png"
-            alt="Clinica Dr. Miu - Implantologie Buzău"
-            width={180}
-            height={60}
-            className="h-12 w-auto object-contain"
+            alt="Clinica Dr. Miu — Implantologie Buzău"
+            width={200}
+            height={64}
             priority
+            style={{ height: "48px", width: "auto", objectFit: "contain" }}
           />
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
-          <Link href="/" className="hover:text-blue-700 transition-colors">Acasă</Link>
-          <Link href="/despre" className="hover:text-blue-700 transition-colors">Despre Dr. Miu</Link>
-          <Link href="/servicii" className="hover:text-blue-700 transition-colors">Servicii</Link>
-          <Link href="/cazuri" className="hover:text-blue-700 transition-colors">Cazuri clinice</Link>
-          <Link href="/contact" className="hover:text-blue-700 transition-colors">Contact</Link>
+        <nav
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "32px",
+            fontSize: "0.92rem",
+            fontWeight: 600,
+            color: "#374151",
+          }}
+          className="desktop-nav"
+        >
+          <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>Acasă</Link>
+          <Link href="/despre" style={{ textDecoration: "none", color: "inherit" }}>Despre Dr. Miu</Link>
+          <Link href="/servicii" style={{ textDecoration: "none", color: "inherit" }}>Servicii</Link>
+          <Link href="/cazuri" style={{ textDecoration: "none", color: "inherit" }}>Cazuri clinice</Link>
+          <Link href="/contact" style={{ textDecoration: "none", color: "inherit" }}>Contact</Link>
         </nav>
 
         {/* CTA Desktop */}
-        <div className="hidden md:flex items-center gap-3">
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }} className="desktop-cta">
           <a
-            href="tel:+40XXXXXXXXX"
-            className="text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors"
+            href="tel:+40750709716"
+            style={{ fontSize: "0.9rem", fontWeight: 700, color: "#1d4ed8", textDecoration: "none" }}
           >
-            📞 Sună acum
+            📞 0750 709 716
           </a>
           <a
             href="#programare"
-            className="bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
+            style={{
+              background: "#1d4ed8",
+              color: "#ffffff",
+              fontSize: "0.9rem",
+              fontWeight: 700,
+              padding: "10px 20px",
+              borderRadius: "999px",
+              textDecoration: "none",
+              boxShadow: "0 4px 12px rgba(29,78,216,0.25)",
+            }}
           >
             Programare
           </a>
@@ -50,33 +89,82 @@ export default function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Meniu"
+          className="hamburger"
+          style={{
+            display: "none",
+            flexDirection: "column",
+            gap: "5px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: "8px",
+          }}
         >
-          <span className={`block w-6 h-0.5 bg-gray-800 transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-gray-800 transition-all ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-gray-800 transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <span style={{ display: "block", width: "24px", height: "2px", background: "#0f172a", borderRadius: "2px", transition: "all 0.2s", transform: menuOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+          <span style={{ display: "block", width: "24px", height: "2px", background: "#0f172a", borderRadius: "2px", transition: "all 0.2s", opacity: menuOpen ? 0 : 1 }} />
+          <span style={{ display: "block", width: "24px", height: "2px", background: "#0f172a", borderRadius: "2px", transition: "all 0.2s", transform: menuOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
         </button>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-4 text-sm font-medium text-gray-700">
-          <Link href="/" onClick={() => setMenuOpen(false)}>Acasă</Link>
-          <Link href="/despre" onClick={() => setMenuOpen(false)}>Despre Dr. Miu</Link>
-          <Link href="/servicii" onClick={() => setMenuOpen(false)}>Servicii</Link>
-          <Link href="/cazuri" onClick={() => setMenuOpen(false)}>Cazuri clinice</Link>
-          <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+        <div
+          style={{
+            background: "#ffffff",
+            borderTop: "1px solid #e5e7eb",
+            padding: "16px 20px 24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            fontSize: "1rem",
+            fontWeight: 600,
+          }}
+          className="mobile-menu"
+        >
+          {[
+            { href: "/", label: "Acasă" },
+            { href: "/despre", label: "Despre Dr. Miu" },
+            { href: "/servicii", label: "Servicii" },
+            { href: "/cazuri", label: "Cazuri clinice" },
+            { href: "/contact", label: "Contact" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              style={{ textDecoration: "none", color: "#0f172a" }}
+            >
+              {item.label}
+            </Link>
+          ))}
           <a
             href="#programare"
-            className="bg-blue-700 text-white text-center font-semibold px-4 py-2 rounded-lg"
             onClick={() => setMenuOpen(false)}
+            style={{
+              background: "#1d4ed8",
+              color: "#ffffff",
+              textAlign: "center",
+              padding: "13px 20px",
+              borderRadius: "999px",
+              textDecoration: "none",
+              fontWeight: 700,
+              marginTop: "8px",
+            }}
           >
             Programare
           </a>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .desktop-cta { display: none !important; }
+          .hamburger { display: flex !important; }
+        }
+      `}</style>
     </header>
-  )
+  );
 }
