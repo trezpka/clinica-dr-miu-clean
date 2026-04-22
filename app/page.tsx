@@ -162,15 +162,13 @@ const faqSchema = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clinicadrmiu.ro"),
-  title:
-    "Implant dentar Buzău | Implantologie și chirurgie dento-alveolară | Clinica Dr. Miu",
+  title: "Implant dentar Buzău | Implantologie și chirurgie dento-alveolară | Clinica Dr. Miu",
   description:
     "Clinica Dr. Miu din Buzău oferă tratamente de implant dentar, implantologie, sinus lift, adiție osoasă, All-on-X și chirurgie dento-alveolară. Evaluare completă, CBCT și plan personalizat.",
   alternates: { canonical: "https://clinicadrmiu.ro" },
   openGraph: {
     title: "Implant dentar Buzău | Clinica Dr. Miu",
-    description:
-      "Evaluare completă, CBCT, scanare digitală și plan de tratament personalizat.",
+    description: "Evaluare completă, CBCT, scanare digitală și plan de tratament personalizat.",
     url: "https://clinicadrmiu.ro",
     siteName: "Clinica Dr. Miu",
     locale: "ro_RO",
@@ -180,10 +178,7 @@ export const metadata: Metadata = {
 };
 
 const sectionStyle: React.CSSProperties = { padding: "72px 20px" };
-const containerStyle: React.CSSProperties = {
-  maxWidth: "1180px",
-  margin: "0 auto",
-};
+const containerStyle: React.CSSProperties = { maxWidth: "1180px", margin: "0 auto" };
 const cardStyle: React.CSSProperties = {
   background: "#ffffff",
   border: "1px solid #e5e7eb",
@@ -210,15 +205,70 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ── STILURI SLIDER CSS ── */}
       <style>{`
+        /* VIDEO MODAL */
+        .video-modal-toggle { display: none; }
+        .video-modal-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.85);
+          z-index: 9999;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .video-modal-toggle:checked ~ .video-modal-overlay {
+          display: flex;
+        }
+        .video-modal-box {
+          position: relative;
+          width: 100%;
+          max-width: 900px;
+          border-radius: 20px;
+          overflow: hidden;
+          background: #000;
+          box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+        }
+        .video-modal-box video { width: 100%; display: block; }
+        .video-modal-close {
+          position: absolute;
+          top: 14px; right: 14px;
+          width: 40px; height: 40px;
+          background: rgba(255,255,255,0.15);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          font-size: 1.4rem; color: #fff; line-height: 1;
+          text-decoration: none;
+          backdrop-filter: blur(4px);
+          transition: background 0.2s;
+        }
+        .video-modal-close:hover { background: rgba(255,255,255,0.3); }
+        .video-play-btn {
+          display: inline-flex; align-items: center; gap: 12px;
+          background: #ffffff; color: #0f172a;
+          padding: 16px 28px; border-radius: 999px;
+          font-weight: 700; font-size: 1rem;
+          cursor: pointer; border: none;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+          transition: transform 0.2s, box-shadow 0.2s;
+          text-decoration: none;
+        }
+        .video-play-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
+        .video-play-icon {
+          width: 44px; height: 44px;
+          background: #1d4ed8; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0;
+        }
+        /* REVIEWS SLIDER */
         .reviews-track {
           display: flex;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch;
-          gap: 20px;
-          padding-bottom: 16px;
+          gap: 20px; padding-bottom: 16px;
           scrollbar-width: none;
         }
         .reviews-track::-webkit-scrollbar { display: none; }
@@ -228,51 +278,70 @@ export default function HomePage() {
           min-width: 280px;
           background: #ffffff;
           border: 1px solid #e5e7eb;
-          border-radius: 18px;
-          padding: 24px;
+          border-radius: 18px; padding: 24px;
           box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          display: flex; flex-direction: column; justify-content: space-between;
         }
-        @media (max-width: 900px) {
-          .review-slide { flex: 0 0 calc(50% - 10px); }
+        @media (max-width: 900px) { .review-slide { flex: 0 0 calc(50% - 10px); } }
+        @media (max-width: 600px) { .review-slide { flex: 0 0 90%; } }
+        .scroll-hint { text-align: center; color: #94a3b8; font-size: 0.82rem; margin-top: 12px; }
+        /* HERO GRID RESPONSIVE */
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 48px;
+          align-items: center;
         }
-        @media (max-width: 600px) {
-          .review-slide { flex: 0 0 90%; }
-        }
-        .scroll-hint {
-          text-align: center;
-          color: #94a3b8;
-          font-size: 0.82rem;
-          margin-top: 12px;
+        @media (max-width: 768px) {
+          .hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .hero-watermark { display: none; }
         }
       `}</style>
 
       {/* ── HERO ── */}
       <section
         style={{
+          position: "relative",
+          overflow: "hidden",
           padding: "88px 20px 72px",
-          background:
-            "linear-gradient(180deg, #eff6ff 0%, #f8fafc 45%, #ffffff 100%)",
+          background: "linear-gradient(180deg, #eff6ff 0%, #f8fafc 45%, #ffffff 100%)",
         }}
       >
-        <div style={containerStyle}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: "32px",
-              alignItems: "center",
-            }}
-          >
+        {/* Logo watermark dreapta sus */}
+        <div
+          className="hero-watermark"
+          style={{
+            position: "absolute",
+            top: "24px",
+            right: "-10px",
+            opacity: 0.07,
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        >
+          <Image
+            src="/logo-premium.png"
+            alt=""
+            width={520}
+            height={520}
+            style={{ width: "clamp(260px, 35vw, 520px)", height: "auto" }}
+            priority
+          />
+        </div>
+
+        <div style={{ ...containerStyle, position: "relative", zIndex: 1 }}>
+          <div className="hero-grid">
+
+            {/* ── STÂNGA ── */}
             <div>
               <p
                 style={{
                   margin: "0 0 16px",
                   color: "#1d4ed8",
                   fontWeight: 700,
-                  letterSpacing: "0.02em",
+                  letterSpacing: "0.05em",
+                  fontSize: "0.85rem",
+                  textTransform: "uppercase",
                 }}
               >
                 Clinica Dr. Miu · Buzău
@@ -280,23 +349,22 @@ export default function HomePage() {
 
               <h1
                 style={{
-                  fontSize: "clamp(2.2rem, 5vw, 4rem)",
+                  fontSize: "clamp(2rem, 4vw, 3.6rem)",
                   lineHeight: 1.1,
                   margin: "0 0 20px",
                   fontWeight: 800,
+                  color: "#0f172a",
                 }}
               >
-                Implant dentar în Buzău — fără durere, cu planificare atentă și
-                rezultate stabile
+                Implant dentar în Buzău — fără durere, cu planificare atentă și rezultate stabile
               </h1>
 
               <p
                 style={{
-                  fontSize: "1.12rem",
-                  lineHeight: 1.8,
-                  margin: "0 0 20px",
+                  fontSize: "1.08rem",
+                  lineHeight: 1.85,
+                  margin: "0 0 24px",
                   color: "#334155",
-                  maxWidth: "760px",
                 }}
               >
                 La Clinica Dr. Miu, tratamentele de{" "}
@@ -313,60 +381,47 @@ export default function HomePage() {
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: "16px",
+                  gap: "12px",
                   marginBottom: "28px",
                   padding: "16px 20px",
                   background: "#ffffff",
                   borderRadius: "16px",
                   border: "1px solid #e2e8f0",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
                 }}
               >
                 {[
                   { value: "500+", label: "implanturi inserate" },
-                  { value: "10 / 10", label: "recenzii pacienți" },
+                  { value: "5 / 5", label: "recenzii Google" },
                   { value: "12+", label: "ani experiență" },
                 ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    style={{ textAlign: "center", flex: "1 1 100px" }}
-                  >
-                    <p
-                      style={{
-                        margin: 0,
-                        fontWeight: 800,
-                        fontSize: "1.4rem",
-                        color: "#1d4ed8",
-                      }}
-                    >
+                  <div key={stat.label} style={{ textAlign: "center", flex: "1 1 90px" }}>
+                    <p style={{ margin: 0, fontWeight: 800, fontSize: "1.4rem", color: "#1d4ed8" }}>
                       {stat.value}
                     </p>
-                    <p style={{ margin: 0, fontSize: "0.8rem", color: "#64748b" }}>
+                    <p style={{ margin: 0, fontSize: "0.78rem", color: "#64748b" }}>
                       {stat.label}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "14px",
-                  marginBottom: "28px",
-                }}
-              >
+              {/* CTA Buttons */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
                 <a
                   href="tel:+40750709716"
                   style={{
                     background: "#1d4ed8",
                     color: "#ffffff",
-                    padding: "14px 22px",
+                    padding: "14px 24px",
                     borderRadius: "999px",
                     textDecoration: "none",
                     fontWeight: 700,
+                    fontSize: "0.97rem",
+                    boxShadow: "0 4px 16px rgba(29,78,216,0.3)",
                   }}
                 >
-                  Sună acum
+                  📞 Sună acum
                 </a>
                 <a
                   href="https://wa.me/40750709716"
@@ -375,89 +430,108 @@ export default function HomePage() {
                   style={{
                     background: "#ffffff",
                     color: "#0f172a",
-                    padding: "14px 22px",
+                    padding: "14px 24px",
                     borderRadius: "999px",
                     textDecoration: "none",
                     fontWeight: 700,
+                    fontSize: "0.97rem",
                     border: "1px solid #cbd5e1",
                   }}
                 >
-                  Scrie pe WhatsApp
+                  WhatsApp
                 </a>
                 <a
                   href="#programare"
                   style={{
                     background: "#ffffff",
                     color: "#0f172a",
-                    padding: "14px 22px",
+                    padding: "14px 24px",
                     borderRadius: "999px",
                     textDecoration: "none",
                     fontWeight: 700,
+                    fontSize: "0.97rem",
                     border: "1px solid #cbd5e1",
                   }}
                 >
-                  Programează o consultație
+                  Programează consultație
                 </a>
               </div>
             </div>
 
-            <div style={cardStyle}>
-              <p
-                style={{
-                  marginTop: 0,
-                  marginBottom: "12px",
-                  color: "#1d4ed8",
-                  fontWeight: 700,
-                }}
-              >
-                De ce aleg pacienții Clinica Dr. Miu
-              </p>
+            {/* ── DREAPTA — Card ── */}
+            <div
+              style={{
+                background: "#ffffff",
+                border: "1px solid #e5e7eb",
+                borderRadius: "24px",
+                padding: "32px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.07)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                <Image
+                  src="/logo-premium.png"
+                  alt="Clinica Dr. Miu"
+                  width={40}
+                  height={40}
+                  style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                />
+                <p style={{ margin: 0, color: "#1d4ed8", fontWeight: 700, fontSize: "0.9rem" }}>
+                  De ce aleg pacienții Clinica Dr. Miu
+                </p>
+              </div>
+
               <h2
                 style={{
                   marginTop: 0,
-                  marginBottom: "18px",
-                  fontSize: "1.8rem",
+                  marginBottom: "16px",
+                  fontSize: "1.7rem",
                   lineHeight: 1.25,
+                  color: "#0f172a",
                 }}
               >
                 Tratament corect, nu doar o intervenție punctuală
               </h2>
-              <p style={{ color: "#334155", lineHeight: 1.8 }}>
+              <p style={{ color: "#334155", lineHeight: 1.85, marginBottom: "18px" }}>
                 În implantologie și chirurgie, decizia corectă începe cu o
                 analiză atentă. Scopul nu este doar inserarea unui implant, ci
                 alegerea unei soluții potrivite pentru situația clinică reală a
                 pacientului.
               </p>
-              <ul
+              <ul style={{ paddingLeft: "20px", color: "#334155", lineHeight: 2, margin: "0 0 24px" }}>
+                <li>Accent pe diagnostic și planificare predictibilă</li>
+                <li>Abordare personalizată pentru implant dentar și reabilitări extinse</li>
+                <li>Integrare între estetică, funcție și stabilitate</li>
+                <li>Soluții adaptate inclusiv cazurilor cu sinus lift sau adiție osoasă</li>
+              </ul>
+
+              {/* Rating badge */}
+              <div
                 style={{
-                  paddingLeft: "20px",
-                  color: "#334155",
-                  lineHeight: 1.9,
-                  marginTop: "18px",
-                  marginBottom: 0,
+                  padding: "12px 16px",
+                  background: "#f8fafc",
+                  borderRadius: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
                 }}
               >
-                <li>Accent pe diagnostic și planificare predictibilă</li>
-                <li>
-                  Abordare personalizată pentru implant dentar și reabilitări
-                  extinse
-                </li>
-                <li>Integrare între estetică, funcție și stabilitate</li>
-                <li>
-                  Soluții adaptate inclusiv cazurilor care necesită sinus lift
-                  sau adiție osoasă
-                </li>
-              </ul>
+                <div style={{ display: "flex", gap: "3px" }}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i}>{starSvg}</span>
+                  ))}
+                </div>
+                <p style={{ margin: 0, fontSize: "0.85rem", color: "#475569", fontWeight: 600 }}>
+                  {reviews.length} recenzii · Nota 5/5 pe Google
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── DR. MIU ── */}
-      <section
-        id="despre-medic"
-        style={{ padding: "72px 20px", background: "#ffffff" }}
-      >
+      <section id="despre-medic" style={{ padding: "72px 20px", background: "#ffffff" }}>
         <div
           style={{
             maxWidth: "1180px",
@@ -491,14 +565,7 @@ export default function HomePage() {
           </div>
 
           <div>
-            <p
-              style={{
-                color: "#1d4ed8",
-                fontWeight: 700,
-                margin: "0 0 12px",
-                letterSpacing: "0.02em",
-              }}
-            >
+            <p style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px", letterSpacing: "0.02em" }}>
               Medicul tău specialist
             </p>
             <h2
@@ -512,44 +579,21 @@ export default function HomePage() {
             >
               Dr. Cosmin Miu
               <br />
-              <span
-                style={{
-                  color: "#475569",
-                  fontSize: "1.2rem",
-                  fontWeight: 500,
-                }}
-              >
+              <span style={{ color: "#475569", fontSize: "1.2rem", fontWeight: 500 }}>
                 Implantologie · Chirurgie dento-alveolară
               </span>
             </h2>
 
-            <p
-              style={{
-                color: "#334155",
-                lineHeight: 1.9,
-                marginBottom: "16px",
-                fontSize: "1.05rem",
-              }}
-            >
-              Absolvent al{" "}
-              <strong>Facultății de Medicină Dentară Carol Davila</strong>{" "}
-              (2012), medic specialist în{" "}
-              <strong>chirurgie dento-alveolară</strong> din 2017, cu
-              activitate concentrată exclusiv pe{" "}
-              <strong>implantologie și chirurgie orală</strong>.
+            <p style={{ color: "#334155", lineHeight: 1.9, marginBottom: "16px", fontSize: "1.05rem" }}>
+              Absolvent al <strong>Facultății de Medicină Dentară Carol Davila</strong> (2012),
+              medic specialist în <strong>chirurgie dento-alveolară</strong> din 2017, cu
+              activitate concentrată exclusiv pe <strong>implantologie și chirurgie orală</strong>.
             </p>
 
-            <p
-              style={{
-                color: "#334155",
-                lineHeight: 1.9,
-                marginBottom: "28px",
-                fontSize: "1.05rem",
-              }}
-            >
-              Particip frecvent la cursuri de perfecționare în țară și în
-              străinătate, deoarece cred că medicina bună înseamnă actualizare
-              continuă și dorința de a învăța permanent tehnici noi.
+            <p style={{ color: "#334155", lineHeight: 1.9, marginBottom: "28px", fontSize: "1.05rem" }}>
+              Particip frecvent la cursuri de perfecționare în țară și în străinătate, deoarece
+              cred că medicina bună înseamnă actualizare continuă și dorința de a învăța permanent
+              tehnici noi.
             </p>
 
             <div
@@ -617,61 +661,158 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── RECENZII SLIDER CSS ── */}
+      {/* ── VIDEO MODAL ── */}
+      <input type="checkbox" id="video-modal-toggle" className="video-modal-toggle" />
+      <label htmlFor="video-modal-toggle" className="video-modal-overlay">
+        <div className="video-modal-box">
+          <video controls preload="none" style={{ width: "100%", display: "block" }}>
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+          <label htmlFor="video-modal-toggle" className="video-modal-close" title="Închide">✕</label>
+        </div>
+      </label>
+
+      {/* ── VIDEO SECTION ── */}
       <section
         style={{
-          ...sectionStyle,
-          background: "#f8fafc",
-          borderTop: "1px solid #e2e8f0",
+          padding: "72px 20px",
+          background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)",
+          color: "#ffffff",
         }}
       >
         <div style={containerStyle}>
-          <p
-            style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}
-          >
-            Ce spun pacienții
-          </p>
-          <h2
+          <div
             style={{
-              marginTop: 0,
-              marginBottom: "8px",
-              fontSize: "2rem",
-              lineHeight: 1.2,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "48px",
+              alignItems: "center",
             }}
           >
+            <div>
+              <p style={{ color: "#93c5fd", fontWeight: 700, margin: "0 0 12px", letterSpacing: "0.02em" }}>
+                Clinica Dr. Miu în acțiune
+              </p>
+              <h2
+                style={{
+                  marginTop: 0,
+                  marginBottom: "20px",
+                  fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                  lineHeight: 1.15,
+                  color: "#ffffff",
+                }}
+              >
+                Planificare digitală, intervenții precise și o echipă dedicată
+              </h2>
+              <p style={{ color: "#cbd5e1", lineHeight: 1.9, marginBottom: "32px", fontSize: "1.05rem" }}>
+                De la analiza 3D cu software exocad până la intervenția propriu-zisă — fiecare
+                etapă este gândită pentru siguranță, precizie și confortul pacientului.
+              </p>
+              <label htmlFor="video-modal-toggle" className="video-play-btn">
+                <span className="video-play-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+                Vizionează clipul
+              </label>
+            </div>
+
+            <label
+              htmlFor="video-modal-toggle"
+              style={{
+                display: "block",
+                position: "relative",
+                borderRadius: "24px",
+                overflow: "hidden",
+                cursor: "pointer",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.4)",
+                aspectRatio: "16/9",
+                background: "#1e293b",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundImage: "url('/dr-miu-portrait-v2.jpg')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center top",
+                  filter: "brightness(0.55)",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "16px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "72px",
+                    height: "72px",
+                    background: "rgba(255,255,255,0.95)",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="#1d4ed8">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p style={{ color: "#ffffff", fontWeight: 700, margin: 0, fontSize: "1rem", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+                  Apasă pentru a viziona
+                </p>
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "16px",
+                  right: "16px",
+                  background: "rgba(0,0,0,0.7)",
+                  color: "#ffffff",
+                  borderRadius: "8px",
+                  padding: "4px 10px",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  backdropFilter: "blur(4px)",
+                }}
+              >
+                🎬 Clinica Dr. Miu
+              </div>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      {/* ── RECENZII ── */}
+      <section style={{ ...sectionStyle, background: "#f8fafc", borderTop: "1px solid #e2e8f0" }}>
+        <div style={containerStyle}>
+          <p style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}>Ce spun pacienții</p>
+          <h2 style={{ marginTop: 0, marginBottom: "8px", fontSize: "2rem", lineHeight: 1.2 }}>
             Experiențe reale, în cuvintele lor
           </h2>
-          <p
-            style={{
-              color: "#64748b",
-              marginTop: 0,
-              marginBottom: "36px",
-              fontSize: "1rem",
-            }}
-          >
+          <p style={{ color: "#64748b", marginTop: 0, marginBottom: "36px", fontSize: "1rem" }}>
             {reviews.length} recenzii autentice · Nota medie 5 / 5
           </p>
-
-          {/* Slider scroll orizontal CSS pur */}
           <div className="reviews-track">
             {reviews.map((review) => (
               <div key={review.name} className="review-slide">
                 <div>
-                  <div
-                    style={{ display: "flex", gap: "4px", marginBottom: "14px" }}
-                  >
+                  <div style={{ display: "flex", gap: "4px", marginBottom: "14px" }}>
                     {Array.from({ length: 5 }).map((_, i) => (
                       <span key={i}>{starSvg}</span>
                     ))}
                   </div>
-                  <p
-                    style={{
-                      margin: 0,
-                      color: "#334155",
-                      lineHeight: 1.8,
-                      fontSize: "0.97rem",
-                    }}
-                  >
+                  <p style={{ margin: 0, color: "#334155", lineHeight: 1.8, fontSize: "0.97rem" }}>
                     &ldquo;{review.text}&rdquo;
                   </p>
                 </div>
@@ -686,25 +827,10 @@ export default function HomePage() {
                   }}
                 >
                   <div>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontWeight: 700,
-                        color: "#0f172a",
-                        fontSize: "0.9rem",
-                      }}
-                    >
+                    <p style={{ margin: 0, fontWeight: 700, color: "#0f172a", fontSize: "0.9rem" }}>
                       {review.name}
                     </p>
-                    <p
-                      style={{
-                        margin: 0,
-                        color: "#94a3b8",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {review.treatment}
-                    </p>
+                    <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.8rem" }}>{review.treatment}</p>
                   </div>
                   <div
                     style={{
@@ -729,44 +855,16 @@ export default function HomePage() {
       {/* ── ÎNAINTE ȘI DUPĂ ── */}
       <section style={{ ...sectionStyle, background: "#ffffff" }}>
         <div style={containerStyle}>
-          <p
-            style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}
-          >
-            Cazuri clinice reale
-          </p>
-          <h2
-            style={{
-              marginTop: 0,
-              marginBottom: "12px",
-              fontSize: "2rem",
-              lineHeight: 1.2,
-            }}
-          >
+          <p style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}>Cazuri clinice reale</p>
+          <h2 style={{ marginTop: 0, marginBottom: "12px", fontSize: "2rem", lineHeight: 1.2 }}>
             Înainte și după — reabilitare orală complexă
           </h2>
-          <p
-            style={{
-              color: "#334155",
-              lineHeight: 1.9,
-              maxWidth: "860px",
-              marginTop: 0,
-              marginBottom: "36px",
-            }}
-          >
-            Cazul de mai jos ilustrează o reabilitare orală complexă realizată
-            la Clinica Dr. Miu. Planificarea atentă, evaluarea imagistică și
-            alegerea corectă a soluției terapeutice au permis obținerea unui
-            rezultat funcțional și estetic stabil.
+          <p style={{ color: "#334155", lineHeight: 1.9, maxWidth: "860px", marginTop: 0, marginBottom: "36px" }}>
+            Cazul de mai jos ilustrează o reabilitare orală complexă realizată la Clinica Dr. Miu.
+            Planificarea atentă, evaluarea imagistică și alegerea corectă a soluției terapeutice au
+            permis obținerea unui rezultat funcțional și estetic stabil.
           </p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "24px",
-            }}
-          >
-            {/* Înainte */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
             <div style={cardStyle}>
               <div
                 style={{
@@ -784,16 +882,7 @@ export default function HomePage() {
               >
                 Înainte
               </div>
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  aspectRatio: "4/3",
-                  borderRadius: "14px",
-                  overflow: "hidden",
-                  background: "#f1f5f9",
-                }}
-              >
+              <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "14px", overflow: "hidden", background: "#f1f5f9" }}>
                 <Image
                   src="/caz-maxilar-2.jpg"
                   alt="Stare inițială înainte de reabilitare orală — Clinica Dr. Miu Buzău"
@@ -802,20 +891,11 @@ export default function HomePage() {
                   sizes="(max-width: 768px) 100vw, 560px"
                 />
               </div>
-              <p
-                style={{
-                  margin: "14px 0 0",
-                  color: "#64748b",
-                  fontSize: "0.9rem",
-                  lineHeight: 1.7,
-                }}
-              >
-                Stare inițială: lucrări vechi compromise, uzură avansată,
-                necesitate de reabilitare completă.
+              <p style={{ margin: "14px 0 0", color: "#64748b", fontSize: "0.9rem", lineHeight: 1.7 }}>
+                Stare inițială: lucrări vechi compromise, uzură avansată, necesitate de reabilitare completă.
               </p>
             </div>
 
-            {/* După */}
             <div style={cardStyle}>
               <div
                 style={{
@@ -833,16 +913,7 @@ export default function HomePage() {
               >
                 După
               </div>
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  aspectRatio: "4/3",
-                  borderRadius: "14px",
-                  overflow: "hidden",
-                  background: "#f1f5f9",
-                }}
-              >
+              <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "14px", overflow: "hidden", background: "#f1f5f9" }}>
                 <Image
                   src="/caz-maxilar-1.jpg"
                   alt="Rezultat după reabilitare orală — Clinica Dr. Miu Buzău"
@@ -851,30 +922,13 @@ export default function HomePage() {
                   sizes="(max-width: 768px) 100vw, 560px"
                 />
               </div>
-              <p
-                style={{
-                  margin: "14px 0 0",
-                  color: "#64748b",
-                  fontSize: "0.9rem",
-                  lineHeight: 1.7,
-                }}
-              >
-                Rezultat final: reabilitare completă, funcție masticatorie
-                restabilită, aspect estetic natural.
+              <p style={{ margin: "14px 0 0", color: "#64748b", fontSize: "0.9rem", lineHeight: 1.7 }}>
+                Rezultat final: reabilitare completă, funcție masticatorie restabilită, aspect estetic natural.
               </p>
             </div>
           </div>
-
-          <p
-            style={{
-              marginTop: "20px",
-              color: "#94a3b8",
-              fontSize: "0.82rem",
-              fontStyle: "italic",
-            }}
-          >
-            * Imagini publicate cu acordul pacientului. Rezultatele pot varia
-            în funcție de situația clinică individuală.
+          <p style={{ marginTop: "20px", color: "#94a3b8", fontSize: "0.82rem", fontStyle: "italic" }}>
+            * Imagini publicate cu acordul pacientului. Rezultatele pot varia în funcție de situația clinică individuală.
           </p>
         </div>
       </section>
@@ -882,78 +936,34 @@ export default function HomePage() {
       {/* ── DESPRE CLINICĂ ── */}
       <section id="despre" style={sectionStyle}>
         <div style={containerStyle}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: "28px",
-              alignItems: "start",
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", alignItems: "start" }}>
             <div>
-              <p
-                style={{
-                  color: "#1d4ed8",
-                  fontWeight: 700,
-                  margin: "0 0 12px",
-                }}
-              >
+              <p style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}>
                 Implantologie și chirurgie dento-alveolară în Buzău
               </p>
-              <h2
-                style={{
-                  marginTop: 0,
-                  marginBottom: "18px",
-                  fontSize: "2rem",
-                  lineHeight: 1.2,
-                }}
-              >
+              <h2 style={{ marginTop: 0, marginBottom: "18px", fontSize: "2rem", lineHeight: 1.2 }}>
                 O abordare bazată pe evaluare, tehnologie și decizii corecte
               </h2>
-              <p
-                style={{
-                  color: "#334155",
-                  lineHeight: 1.9,
-                  marginBottom: 16,
-                }}
-              >
+              <p style={{ color: "#334155", lineHeight: 1.9, marginBottom: 16 }}>
                 Clinica Dr. Miu este orientată către tratamente de{" "}
                 <strong>implantologie în Buzău</strong> și{" "}
-                <strong>chirurgie dento-alveolară</strong>, cu accent pe
-                analiza atentă a fiecărui caz și pe stabilirea unei soluții
-                potrivite pe termen lung.
+                <strong>chirurgie dento-alveolară</strong>, cu accent pe analiza atentă a fiecărui
+                caz și pe stabilirea unei soluții potrivite pe termen lung.
               </p>
               <p style={{ color: "#334155", lineHeight: 1.9, margin: 0 }}>
-                Pentru pacient, acest lucru înseamnă mai multă claritate, mai
-                multă siguranță în decizie și un plan realist, construit în
-                funcție de nevoile reale ale cazului.
+                Pentru pacient, acest lucru înseamnă mai multă claritate, mai multă siguranță în
+                decizie și un plan realist, construit în funcție de nevoile reale ale cazului.
               </p>
             </div>
-
-            <div
-              style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
               {[
-                {
-                  title: "Evaluare completă",
-                  text: "Examinare clinică, analiză imagistică și integrarea informațiilor necesare pentru un plan de tratament corect.",
-                },
-                {
-                  title: "Tehnologie digitală",
-                  text: "CBCT și scanare digitală pentru cazurile în care precizia și predictibilitatea sunt esențiale.",
-                },
-                {
-                  title: "Soluții adaptate cazului",
-                  text: "De la un implant unic până la reabilitări extinse de tip All-on-X în Buzău, recomandarea se face individual.",
-                },
+                { title: "Evaluare completă", text: "Examinare clinică, analiză imagistică și integrarea informațiilor necesare pentru un plan de tratament corect." },
+                { title: "Tehnologie digitală", text: "CBCT și scanare digitală pentru cazurile în care precizia și predictibilitatea sunt esențiale." },
+                { title: "Soluții adaptate cazului", text: "De la un implant unic până la reabilitări extinse de tip All-on-X în Buzău, recomandarea se face individual." },
               ].map((item) => (
                 <div key={item.title} style={cardStyle}>
-                  <h3 style={{ marginTop: 0, marginBottom: "10px" }}>
-                    {item.title}
-                  </h3>
-                  <p style={{ margin: 0, color: "#334155", lineHeight: 1.8 }}>
-                    {item.text}
-                  </p>
+                  <h3 style={{ marginTop: 0, marginBottom: "10px" }}>{item.title}</h3>
+                  <p style={{ margin: 0, color: "#334155", lineHeight: 1.8 }}>{item.text}</p>
                 </div>
               ))}
             </div>
@@ -964,56 +974,21 @@ export default function HomePage() {
       {/* ── SERVICII ── */}
       <section id="servicii" style={{ ...sectionStyle, background: "#ffffff" }}>
         <div style={containerStyle}>
-          <p
-            style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}
-          >
-            Servicii
-          </p>
-          <h2
-            style={{
-              marginTop: 0,
-              marginBottom: "18px",
-              fontSize: "2rem",
-              lineHeight: 1.2,
-            }}
-          >
+          <p style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}>Servicii</p>
+          <h2 style={{ marginTop: 0, marginBottom: "18px", fontSize: "2rem", lineHeight: 1.2 }}>
             Tratamente orientate spre stabilitate, funcție și estetică
           </h2>
-          <p
-            style={{
-              maxWidth: "860px",
-              color: "#334155",
-              lineHeight: 1.9,
-              marginTop: 0,
-              marginBottom: "34px",
-            }}
-          >
-            Fiecare tratament este ales în funcție de situația clinică reală,
-            de obiectivele funcționale și estetice și de condițiile locale
-            existente.
+          <p style={{ maxWidth: "860px", color: "#334155", lineHeight: 1.9, marginTop: 0, marginBottom: "34px" }}>
+            Fiecare tratament este ales în funcție de situația clinică reală, de obiectivele
+            funcționale și estetice și de condițiile locale existente.
           </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: "20px",
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
             {services.map((service) => (
               <article key={service.title} style={cardStyle}>
-                <h3
-                  style={{
-                    marginTop: 0,
-                    marginBottom: "12px",
-                    fontSize: "1.25rem",
-                    lineHeight: 1.3,
-                  }}
-                >
+                <h3 style={{ marginTop: 0, marginBottom: "12px", fontSize: "1.25rem", lineHeight: 1.3 }}>
                   {service.title}
                 </h3>
-                <p style={{ margin: 0, color: "#334155", lineHeight: 1.85 }}>
-                  {service.text}
-                </p>
+                <p style={{ margin: 0, color: "#334155", lineHeight: 1.85 }}>{service.text}</p>
               </article>
             ))}
           </div>
@@ -1023,13 +998,7 @@ export default function HomePage() {
       {/* ── EVALUARE ── */}
       <section style={sectionStyle}>
         <div style={containerStyle}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "24px",
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
             {[
               {
                 title: "Cum decurge evaluarea inițială",
@@ -1067,41 +1036,16 @@ export default function HomePage() {
               },
             ].map((block) => (
               <div key={block.title} style={cardStyle}>
-                <h2
-                  style={{
-                    marginTop: 0,
-                    marginBottom: "14px",
-                    fontSize: "1.8rem",
-                    lineHeight: 1.25,
-                  }}
-                >
+                <h2 style={{ marginTop: 0, marginBottom: "14px", fontSize: "1.8rem", lineHeight: 1.25 }}>
                   {block.title}
                 </h2>
                 {block.type === "ol" ? (
-                  <ol
-                    style={{
-                      paddingLeft: "20px",
-                      color: "#334155",
-                      lineHeight: 1.9,
-                      margin: 0,
-                    }}
-                  >
-                    {block.items.map((i) => (
-                      <li key={i}>{i}</li>
-                    ))}
+                  <ol style={{ paddingLeft: "20px", color: "#334155", lineHeight: 1.9, margin: 0 }}>
+                    {block.items.map((i) => <li key={i}>{i}</li>)}
                   </ol>
                 ) : (
-                  <ul
-                    style={{
-                      paddingLeft: "20px",
-                      color: "#334155",
-                      lineHeight: 1.9,
-                      margin: 0,
-                    }}
-                  >
-                    {block.items.map((i) => (
-                      <li key={i}>{i}</li>
-                    ))}
+                  <ul style={{ paddingLeft: "20px", color: "#334155", lineHeight: 1.9, margin: 0 }}>
+                    {block.items.map((i) => <li key={i}>{i}</li>)}
                   </ul>
                 )}
               </div>
@@ -1113,39 +1057,17 @@ export default function HomePage() {
       {/* ── FAQ ── */}
       <section id="faq" style={{ ...sectionStyle, background: "#ffffff" }}>
         <div style={containerStyle}>
-          <p
-            style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}
-          >
-            Întrebări frecvente
-          </p>
-          <h2
-            style={{
-              marginTop: 0,
-              marginBottom: "28px",
-              fontSize: "2rem",
-              lineHeight: 1.2,
-            }}
-          >
+          <p style={{ color: "#1d4ed8", fontWeight: 700, margin: "0 0 12px" }}>Întrebări frecvente</p>
+          <h2 style={{ marginTop: 0, marginBottom: "28px", fontSize: "2rem", lineHeight: 1.2 }}>
             Informații utile despre implant dentar și reabilitare orală
           </h2>
-          <div
-            style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
             {faqItems.map((item) => (
               <article key={item.question} style={cardStyle}>
-                <h3
-                  style={{
-                    marginTop: 0,
-                    marginBottom: "10px",
-                    fontSize: "1.18rem",
-                    lineHeight: 1.35,
-                  }}
-                >
+                <h3 style={{ marginTop: 0, marginBottom: "10px", fontSize: "1.18rem", lineHeight: 1.35 }}>
                   {item.question}
                 </h3>
-                <p style={{ margin: 0, color: "#334155", lineHeight: 1.85 }}>
-                  {item.answer}
-                </p>
+                <p style={{ margin: 0, color: "#334155", lineHeight: 1.85 }}>{item.answer}</p>
               </article>
             ))}
           </div>
@@ -1153,94 +1075,44 @@ export default function HomePage() {
       </section>
 
       {/* ── CONTACT ── */}
-      <section
-        style={{ ...sectionStyle, background: "#0f172a", color: "#ffffff" }}
-        id="programare"
-      >
+      <section style={{ ...sectionStyle, background: "#0f172a", color: "#ffffff" }} id="programare">
         <div style={containerStyle}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: "28px",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", alignItems: "center" }}>
             <div>
-              <p
-                style={{
-                  color: "#93c5fd",
-                  fontWeight: 700,
-                  margin: "0 0 12px",
-                }}
-              >
+              <p style={{ color: "#93c5fd", fontWeight: 700, margin: "0 0 12px" }}>
                 Programează o consultație
               </p>
-              <h2
-                style={{
-                  marginTop: 0,
-                  marginBottom: "16px",
-                  fontSize: "2.1rem",
-                  lineHeight: 1.2,
-                }}
-              >
+              <h2 style={{ marginTop: 0, marginBottom: "16px", fontSize: "2.1rem", lineHeight: 1.2 }}>
                 Vrei să afli ce soluție este potrivită pentru cazul tău?
               </h2>
-              <p
-                style={{
-                  color: "#cbd5e1",
-                  lineHeight: 1.9,
-                  marginTop: 0,
-                  marginBottom: 0,
-                  maxWidth: "760px",
-                }}
-              >
-                Dacă ai nevoie de un{" "}
-                <strong>implant dentar în Buzău</strong>, de o opinie privind
-                un caz complex sau de o evaluare pentru{" "}
-                <strong>All-on-X</strong>, <strong>sinus lift</strong> ori{" "}
-                <strong>adiție osoasă</strong>, primul pas este consultația.
+              <p style={{ color: "#cbd5e1", lineHeight: 1.9, marginTop: 0, marginBottom: 0, maxWidth: "760px" }}>
+                Dacă ai nevoie de un <strong>implant dentar în Buzău</strong>, de o opinie privind
+                un caz complex sau de o evaluare pentru <strong>All-on-X</strong>,{" "}
+                <strong>sinus lift</strong> ori <strong>adiție osoasă</strong>, primul pas este
+                consultația.
               </p>
             </div>
-
-            <div
-              style={{ ...cardStyle, background: "#ffffff", color: "#0f172a" }}
-            >
-              <h3 style={{ marginTop: 0, marginBottom: "16px" }}>
-                Date de contact
-              </h3>
+            <div style={{ ...cardStyle, background: "#ffffff", color: "#0f172a" }}>
+              <h3 style={{ marginTop: 0, marginBottom: "16px" }}>Date de contact</h3>
               <p style={{ margin: "0 0 10px", lineHeight: 1.8 }}>
                 <strong>Adresă:</strong> Str. Penteleu 16, Buzău
               </p>
               <p style={{ margin: "0 0 10px", lineHeight: 1.8 }}>
                 <strong>Telefon:</strong>{" "}
-                <a
-                  href="tel:+40750709716"
-                  style={{ color: "#1d4ed8", textDecoration: "none" }}
-                >
+                <a href="tel:+40750709716" style={{ color: "#1d4ed8", textDecoration: "none" }}>
                   0750 709 716
                 </a>
               </p>
               <p style={{ margin: "0 0 22px", lineHeight: 1.8 }}>
                 <strong>Email:</strong>{" "}
-                <a
-                  href="mailto:contact@clinicadrmiu.ro"
-                  style={{ color: "#1d4ed8", textDecoration: "none" }}
-                >
+                <a href="mailto:contact@clinicadrmiu.ro" style={{ color: "#1d4ed8", textDecoration: "none" }}>
                   contact@clinicadrmiu.ro
                 </a>
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
                 <a
                   href="tel:+40750709716"
-                  style={{
-                    background: "#1d4ed8",
-                    color: "#ffffff",
-                    padding: "13px 20px",
-                    borderRadius: "999px",
-                    textDecoration: "none",
-                    fontWeight: 700,
-                  }}
+                  style={{ background: "#1d4ed8", color: "#ffffff", padding: "13px 20px", borderRadius: "999px", textDecoration: "none", fontWeight: 700 }}
                 >
                   Sună acum
                 </a>
@@ -1248,14 +1120,7 @@ export default function HomePage() {
                   href="https://wa.me/40750709716"
                   target="_blank"
                   rel="noreferrer"
-                  style={{
-                    background: "#e2e8f0",
-                    color: "#0f172a",
-                    padding: "13px 20px",
-                    borderRadius: "999px",
-                    textDecoration: "none",
-                    fontWeight: 700,
-                  }}
+                  style={{ background: "#e2e8f0", color: "#0f172a", padding: "13px 20px", borderRadius: "999px", textDecoration: "none", fontWeight: 700 }}
                 >
                   WhatsApp
                 </a>
