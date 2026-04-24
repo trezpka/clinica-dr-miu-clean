@@ -19,16 +19,24 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.clinicadrmiu.ro/caz-fractura-incisiv-1.jpg",
+        url: "https://www.clinicadrmiu.ro/copie3.jpeg",
         width: 1200,
-        height: 1600,
-        alt: "Caz clinic real - implant dentar imediat",
+        height: 900,
+        alt: "Caz clinic real - extracție incisivi inferiori și implant imediat",
       },
     ],
   },
 };
 
 const featuredCases = [
+  {
+    title: "Extracție 4 incisivi inferiori, 2 implanturi cu ghid chirurgical și 4 coroane temporare în aceeași ședință",
+    description:
+      "Pacientul s-a prezentat pentru extracția celor 4 incisivi inferiori cu mobilitate. După analiza CT, s-a decis extracția, inserarea a 2 implanturi cu ghid chirurgical și aplicarea a 4 coroane temporare în aceeași ședință.",
+    href: "/reabilitare-incisivi-inferiori-implant",
+    image: "/copie3.jpeg",
+    badge: "Caz nou · Implant imediat",
+  },
   {
     title: "Fractură incisiv central — implant dentar imediat",
     description:
@@ -48,6 +56,21 @@ const featuredCases = [
 ] as const;
 
 const gallery = [
+  {
+    src: "/copie1.jpeg",
+    alt: "Starea inițială - incisivi inferiori cu mobilitate avansată",
+    caption: "Incisivi inferiori — stare inițială",
+  },
+  {
+    src: "/copie2.jpeg",
+    alt: "Inserarea implanturilor cu ghid chirurgical",
+    caption: "Inserare implanturi cu ghid chirurgical",
+  },
+  {
+    src: "/copie3.jpeg",
+    alt: "Rezultat final cu coroane temporare în aceeași ședință",
+    caption: "Coroane temporare — aceeași ședință",
+  },
   {
     src: "/caz-fractura-incisiv-1.jpg",
     alt: "Situație inițială înainte de implant dentar imediat",
@@ -97,6 +120,7 @@ export default function CazuriPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
+      {/* HERO */}
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">
@@ -113,22 +137,28 @@ export default function CazuriPage() {
         </div>
       </section>
 
+      {/* CAZURI FEATURED */}
       <section className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {featuredCases.map((item) => (
             <article
               key={item.href}
-              className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm"
+              className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="relative aspect-[16/10]">
-                <Image src={item.image} alt={item.title} fill className="object-cover" />
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
-
               <div className="space-y-4 p-6">
-                <span className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+                <span className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
                   {item.badge}
                 </span>
-                <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
+                <h2 className="text-xl font-semibold tracking-tight text-slate-950 leading-snug">
                   {item.title}
                 </h2>
                 <p className="text-sm leading-7 text-slate-600">{item.description}</p>
@@ -136,7 +166,7 @@ export default function CazuriPage() {
                   href={item.href}
                   className="inline-flex rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-blue-700"
                 >
-                  Vezi cazul
+                  Vezi cazul →
                 </Link>
               </div>
             </article>
@@ -144,6 +174,7 @@ export default function CazuriPage() {
         </div>
       </section>
 
+      {/* GALERIE */}
       <section className="mx-auto max-w-7xl px-6 pb-16 lg:px-8 lg:pb-24">
         <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
           Galerie imagini din cazuri reale
@@ -160,7 +191,13 @@ export default function CazuriPage() {
               className="overflow-hidden rounded-2xl border border-slate-200 bg-white"
             >
               <div className="relative aspect-[4/3]">
-                <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
               <figcaption className="px-4 py-3 text-sm text-slate-600">
                 {img.caption}
